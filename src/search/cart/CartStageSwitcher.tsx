@@ -59,6 +59,7 @@ export default function CartStageSwitcher({
             hoverPosition="left"
           ></CircularIconButton>
           {/* TODO make sure you add disabled button functionality and disable this button incase the cart is empty... */}
+          {/* TODO make the Checkout button change arrow direction and hover text to switch form check out to back... */}
         </div>
       </div>
     </>
