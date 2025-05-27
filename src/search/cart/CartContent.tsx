@@ -3,8 +3,6 @@ import ProductActionPanel from "../products/ProductActionPanel";
 import "./CartContent.scss";
 import { useEffect, useState } from "react";
 import { cartService } from "../services/CartService";
-import { ArrowRight, CircleArrowOutDownRight } from "lucide-react";
-import CircularIconButton from "../products/buttons/CircularIconButton";
 import AnimatedCounter from "./animatedCounter/AnimatedCounter";
 
 export default function CartContent() {

@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import CartContainer from "./CartContainer";
 import CartIcon from "./CartIcon";
-import CartContent from "./CartContent";
 import "./FloatingCart.scss";
 import CartStageSwitcher from "./CartStageSwitcher";
 
 export default function FloatingCart() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleCart = () => setIsOpen(!isOpen);
+  // const toggleCart = () => setIsOpen(!isOpen);
   const closeCart = () => setIsOpen(false);
   const openCart = () => setIsOpen(true);
 

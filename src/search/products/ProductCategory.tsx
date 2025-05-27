@@ -1,8 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import { dataService, Product } from "../services/DataService";
-import { categoryService } from "../services/CategoryService";
-import { categoryFilterService } from "../services/CategoryFilterService";
+import { Product } from "../services/DataService";
 import ProductRow from "../products/ProductRow";
 import "./ProductCategory.scss";
 import { cartService } from "../services/CartService";

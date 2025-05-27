@@ -1,8 +1,6 @@
-import { ReactNode, useState } from "react";
 import "./CountControl.scss";
-import { number } from "framer-motion";
 import CircularIconButton from "./buttons/CircularIconButton";
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 export default function CountControl({
   onChange,

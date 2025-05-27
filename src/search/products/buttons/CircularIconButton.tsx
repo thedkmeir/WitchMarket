@@ -22,7 +22,7 @@ export default function CircularIconButton({
       <div className="customButtonWrapperCircle">
         <button
           type="button"
-          onClick={(e) => onChange && onChange()}
+          onClick={() => onChange && onChange()}
           className="customButtonCircle"
           data-tooltip-id={tooltipId}
           data-tooltip-content={hoverText}

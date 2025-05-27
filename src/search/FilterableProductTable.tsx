@@ -6,7 +6,6 @@ import Search from "./search&filter/Search";
 import { motion, AnimatePresence } from "framer-motion";
 import FilterContainer from "./search&filter/FilterContainer";
 import { dataService } from "./services/DataService";
-import { datalist } from "framer-motion/client";
 
 export default function FilterableProductTable() {
   const [categories, setCategories] = useState<string[]>(

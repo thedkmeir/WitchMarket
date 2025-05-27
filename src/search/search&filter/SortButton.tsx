@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { sortTypes, SortType, sortService } from "../services/SortService";
+import { sortTypes, sortService } from "../services/SortService";
 import "./SortButton.scss";
 import { ArrowUpDown } from "lucide-react";
 

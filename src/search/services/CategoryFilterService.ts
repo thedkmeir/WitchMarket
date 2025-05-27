@@ -1,4 +1,3 @@
-import { data } from "framer-motion/client";
 import { dataService } from "./DataService";
 
 type MapCallback = (term: string[]) => void;

@@ -5,7 +5,6 @@ import CircularIconButton from "./buttons/CircularIconButton";
 import CountControl from "./CountControl";
 import { cartService } from "../services/CartService";
 import { dataService } from "../services/DataService";
-import { data } from "framer-motion/client";
 
 export default function ProductActionPanel({
   productName,
