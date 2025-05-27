@@ -1,5 +1,5 @@
 import "./App.css";
-import Board from "./tictactoe/board";
+// import Board from "./tictactoe/board";
 import FilterableProductTable from "./search/FilterableProductTable";
 import FloatingCart from "./search/cart/FloatingCart";
 
