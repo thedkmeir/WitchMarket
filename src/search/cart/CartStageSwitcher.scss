@@ -1,0 +1,22 @@
+.cartStageSwitcher {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  .cartStage {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .cartStageSwitcherFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px;
+    margin-top: auto;
+    margin-bottom: 8px;
+  }
+}

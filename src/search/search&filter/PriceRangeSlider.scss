@@ -1,0 +1,31 @@
+@use "sass:color";
+
+.priceRangeSlider {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .customRangeSlider {
+    background: var(--color-2);
+    cursor: unset;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+
+    .range-slider__range {
+      background: var(--color-4);
+      height: 8px;
+    }
+
+    .range-slider__thumb {
+      background: var(--color-4-brighter);
+      width: 18px;
+      height: 18px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    .range-slider__thumb:hover {
+      background: var(--color-4-bright);
+    }
+  }
+}

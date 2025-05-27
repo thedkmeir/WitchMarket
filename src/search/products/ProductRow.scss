@@ -1,0 +1,48 @@
+@use "sass:color";
+.productRow {
+  .row {
+    display: flex;
+    flex-direction: row;
+    padding: 4px 10px;
+    width: auto;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    border-radius: 8px;
+    background-color: var(--color-4);
+  }
+
+  .out {
+    @extend .row;
+    cursor: default;
+    background-color: var(--color-4-bright);
+    text-decoration: line-through;
+  }
+
+  .in {
+    @extend .row;
+  }
+
+  .grow-on-hover {
+    transition: transform 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.5s;
+    }
+    &:active {
+      transform: scale(1);
+      transition: transform 0.02s;
+    }
+  }
+
+  .product-name {
+    margin-right: 20px;
+    text-align: left;
+  }
+
+  .product-price {
+    text-align: right;
+  }
+}

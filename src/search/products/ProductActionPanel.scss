@@ -1,0 +1,19 @@
+@use "sass:color";
+
+.productActionPanel{
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  justify-content: space-between;
+  align-items: normal;
+  color: black;
+  border-radius: 8px;
+  background: var(--color-4-bright);
+
+  .column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

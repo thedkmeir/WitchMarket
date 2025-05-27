@@ -1,0 +1,84 @@
+// $color1: var(--color-1);
+// $color2: var(--color-2);
+// $color3: #A55B4B;
+// $color4: var(--color-4);
+
+@use "sass:color";
+
+$color1: #210F37;
+$color2: #4F1C51;
+$color3: #A55B4B;
+$color4: #DCA06D;
+
+:root {
+  --color-1: #{$color1};
+  --color-1-bright: #{color.scale($color1, $lightness: 20%)};
+  --color-1-brighter: #{color.scale($color1, $lightness: 40%)};
+
+  --color-2: #{$color2};
+  --color-2-bright: #{color.scale($color2, $lightness: 20%)};
+  --color-2-brighter: #{color.scale($color2, $lightness: 40%)};
+
+  --color-3: #{$color3};
+  --color-3-bright: #{color.scale($color3, $lightness: 20%)};
+  --color-3-brighter: #{color.scale($color3, $lightness: 40%)};
+  
+  --color-4: #{$color4};
+  --color-4-bright: #{color.scale($color4, $lightness: 20%)};
+  --color-4-brighter: #{color.scale($color4, $lightness: 40%)};
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: medium;
+
+  color-scheme: light dark;
+  color: black;
+  background-color: var(--color-1);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Global scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  border: 2px solid transparent;
+  border-bottom: none;
+  border-top: none;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Optional: dark mode tweak (if needed) */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}

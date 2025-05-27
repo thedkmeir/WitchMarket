@@ -1,0 +1,76 @@
+@use "sass:color";
+
+.CircularIconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+
+  .customButtonWrapperCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .customButtonWrapperCircle button.customButtonCircle {
+    all: unset;
+    width: auto;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--color-4);
+    border-radius: 50%;
+    color: black;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 300ms;
+    transition-property: color, background-color, box-shadow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset,
+      rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
+    outline: none;
+  }
+
+  .customButtonWrapperCircle button.customButtonCircle:hover {
+    background-color: var(--color-4-bright);
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+      rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+      rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+
+    // i want the test to raise
+    // the button to be raised when hovered
+    transform: translateY(-2px);
+    transition: all 0.2s ease-in-out;
+    transition-property: transform;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .customButtonWrapperCircle button.customButtonCircle.active {
+    background-color: var(--color-4);
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+      rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+      rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+  }
+
+  .customButtonWrapperCircle button.customButtonCircle:active {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset,
+      rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
+    background-color: rgba(0, 0, 0, 0.16);
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+  }
+}
