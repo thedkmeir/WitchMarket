@@ -19,7 +19,6 @@ export default function InStockCheckBox({
   }
 
   function handleRemoteCheckBoxChange(val: boolean) {
-    if (val === checkboxState) return;
     if (!string) return;
     setCheckboxState(val);
     const checkbox = document.getElementById(string) as HTMLInputElement;

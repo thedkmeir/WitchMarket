@@ -41,6 +41,7 @@ class CartService {
     this.totalCost += dataService.getProductByName(itemName)?.price || 0;
     const currentAmount = this.itemList.get(itemName) || 0;
     this.itemList.set(itemName, currentAmount + 1);
+    this.fixTotalCount();
     this.notifySubscribers();
   }
 
@@ -50,6 +51,7 @@ class CartService {
         (dataService.getProductByName(itemName)?.price || 0) *
         this.itemList.get(itemName)!;
       this.itemList.delete(itemName);
+      this.fixTotalCount();
       this.notifySubscribers();
     }
   }
@@ -57,16 +59,14 @@ class CartService {
   decreaseItem(itemName: string, amount: number = 1) {
     const currentAmount = this.itemList.get(itemName) || 0;
     const newAmount = currentAmount - amount;
-
     if (newAmount > 0) {
       this.itemList.set(itemName, newAmount);
     } else {
       this.itemList.delete(itemName);
     }
-
     this.totalCost -=
       (dataService.getProductByName(itemName)?.price || 0) * amount;
-
+    this.fixTotalCount();
     this.notifySubscribers();
   }
 
@@ -82,12 +82,16 @@ class CartService {
         (dataService.getProductByName(itemName)?.price || 0) * currentAmount;
       this.itemList.delete(itemName);
     }
-
+    this.fixTotalCount();
     this.notifySubscribers();
   }
 
   getTotalCost(): number {
     return this.totalCost;
+  }
+
+  private fixTotalCount() {
+    this.totalCost = Math.round((this.totalCost + Number.EPSILON) * 100) / 100;
   }
 }
 

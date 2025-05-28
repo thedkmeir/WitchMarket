@@ -45,6 +45,10 @@ $color4: #DCA06D;
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  user-select: none;
+}
+
 body {
   margin: 0;
   display: flex;

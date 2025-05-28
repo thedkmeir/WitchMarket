@@ -73,4 +73,17 @@
     height: 100%;
     margin: 5px;
   }
+
+  .customButtonWrapperCircle button.customButtonCircle.disabled,
+  .customButtonWrapperCircle button.customButtonCircle:disabled {
+    background-color: #999999 !important;
+    // color: #888 !important;
+    cursor: not-allowed !important;
+    // box-shadow: none !important;
+    filter: grayscale(60%);
+    // opacity: 0.6;
+    pointer-events: none; // Fully disables interaction
+    transform: none !important; // Prevent hover/active transforms
+    transition: none !important;
+  }
 }

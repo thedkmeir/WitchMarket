@@ -8,24 +8,19 @@ export default function PriceRangeSlider() {
   const minPrice = rangeService.getInitRangeLowest();
   const maxPrice = rangeService.getInitRangeHighest();
 
-  const [range, setRange] = useState<[number, number]>([minPrice, maxPrice]);
+  const [range, setRange] = useState<[number, number]>(
+    rangeService.getRangeNumbers() as [number, number]
+  );
 
   function handleRangeChange(value: [number, number]) {
     rangeService.setRangeNumbers(value);
-    setRange(value);
-  }
-
-  function handleRemoteRangeChange(value: number[]) {
-    if (value[0] !== range[0] || value[1] !== range[1]) {
-      setRange([value[0], value[1]]);
-    }
   }
 
   useEffect(() => {
-    const unsubscribe = rangeService.subscribe(handleRemoteRangeChange);
-    return () => {
-      unsubscribe();
-    };
+    const unsubscribe = rangeService.subscribe((value: number[]) => {
+      setRange([value[0], value[1]]);
+    });
+    return () => unsubscribe();
   }, []);
 
   return (
