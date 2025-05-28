@@ -1,13 +1,18 @@
 import { dataService } from "./DataService";
+import { Service } from "./Service";
 
-type MapCallback = (term: string[]) => void;
-
-class CategoryFilterService {
+class CategoryFilterService extends Service {
   private static instance: CategoryFilterService;
-  private subscribers: Map<string, MapCallback> = new Map();
+  static getInstance(): CategoryFilterService {
+    if (!CategoryFilterService.instance)
+      CategoryFilterService.instance = new CategoryFilterService();
+    return CategoryFilterService.instance;
+  }
+
   private filterCategories: string[] = [];
 
   constructor() {
+    super();
     this.filterCategories = dataService.getFilledCategories();
     dataService.subscribe(
       "categoryFilterService",
@@ -18,25 +23,6 @@ class CategoryFilterService {
   clear() {
     this.filterCategories = dataService.getFilledCategories();
     this.notifySubscribers();
-  }
-
-  static getInstance(): CategoryFilterService {
-    if (!CategoryFilterService.instance)
-      CategoryFilterService.instance = new CategoryFilterService();
-    return CategoryFilterService.instance;
-  }
-
-  subscribe(catName: string, callback: MapCallback): () => void {
-    if (!this.subscribers.has(catName)) this.subscribers.set(catName, callback);
-    return () => this.unsubscribe(catName);
-  }
-
-  unsubscribe(catName: string) {
-    if (this.subscribers.has(catName)) this.subscribers.delete(catName);
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach((callback) => callback(this.filterCategories));
   }
 
   getFilterCategories(): string[] {

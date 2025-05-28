@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CartContent from "./CartContent";
 import FinalCheckout from "./CartCheckout";
@@ -18,7 +18,7 @@ export default function CartStageSwitcher({
   );
 
   useEffect(() => {
-    const unsubscribe = cartService.subscribe(() => {
+    const unsubscribe = cartService.subscribe("CartStageSwitcher", () => {
       if (cartService.getTotalCost() === 0 && stage === "cart")
         setDisableProceedBtn(true);
       else setDisableProceedBtn(false);
@@ -56,7 +56,6 @@ export default function CartStageSwitcher({
             </motion.div>
           )}
         </AnimatePresence>
-        {/* TODO make this whole footer a component... its wayyyyy too long... */}
         <div className="cartStageSwitcherFooter">
           <CircularIconButton
             onChange={() => {

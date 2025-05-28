@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { categoryFilterService } from "../services/CategoryFilterService";
 import { AnimatePresence, motion } from "framer-motion";
+import { dataService } from "../services/DataService";
 import { inStockService } from "../services/InStockService";
 import FilterCheckBox from "./checkboxes/FilterCheckBox";
 import FilterButton from "./FilterButton";
@@ -17,19 +18,33 @@ export default function FilterContainer() {
   const [categories, setCategories] = useState<string[]>(
     categoryFilterService.getFilterCategories()
   );
+  const [ratio, setRatio] = useState<string>(getStringRatio());
 
-  function updateCategories(newCategories: string[]) {
-    setCategories(newCategories);
+  function getStringRatio(): string {
+    return (
+      dataService.getStoreCatalogFilteredCount() +
+      " / " +
+      dataService.getStoreCatalogTotalCount()
+    );
   }
 
   useEffect(() => {
     const unsubscribe = categoryFilterService.subscribe(
       "FilterContainer",
-      updateCategories
+      () => {
+        setCategories(categoryFilterService.getFilterCategories());
+      }
     );
     return () => {
       unsubscribe();
     };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = dataService.subscribe("PriceRangeSlider", () => {
+      setRatio(getStringRatio());
+    });
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -39,15 +54,16 @@ export default function FilterContainer() {
           <InStockCheckBox
             string={"Show Only in-stock"}
             defaultCheckedState={false}
+            id={"FilterContainer Show Only in-stock"}
           />
           <FilterButton
             ButtonText={"Clear All Filters"}
             defaultCheckedState={false}
             onChange={() => {
+              categoryService.clear();
               searchService.clear();
               inStockService.clear();
               rangeService.clear();
-              categoryService.clear();
               categoryFilterService.clear();
               sortService.clear();
             }}
@@ -80,8 +96,12 @@ export default function FilterContainer() {
           </AnimatePresence>
         </div>
 
-        <div className="FilterRow" style={{ marginTop: "10px" }}>
+        <div
+          className="FilterRow"
+          style={{ marginTop: "10px", justifyContent: "space-between" }}
+        >
           <SortButton />
+          <div>{ratio}</div>
         </div>
       </div>
     </>

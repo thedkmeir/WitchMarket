@@ -1,13 +1,18 @@
 import { dataService } from "./DataService";
+import { Service } from "./Service";
 
-type MapCallback = (term: Map<string, boolean>) => void;
-
-class CategoryService {
+class CategoryService extends Service {
   private static instance: CategoryService;
-  private subscribers: Map<string, MapCallback> = new Map();
+  static getInstance(): CategoryService {
+    if (!CategoryService.instance)
+      CategoryService.instance = new CategoryService();
+    return CategoryService.instance;
+  }
+
   private categories: Map<string, boolean> = new Map();
 
   constructor() {
+    super();
     this.clear();
   }
 
@@ -16,26 +21,8 @@ class CategoryService {
     storeCatalog.forEach((_, category) => {
       this.categories.set(category, true);
     });
+    dataService.clearBlackList();
     this.notifySubscribers();
-  }
-
-  static getInstance(): CategoryService {
-    if (!CategoryService.instance)
-      CategoryService.instance = new CategoryService();
-    return CategoryService.instance;
-  }
-
-  subscribe(catName: string, callback: MapCallback): () => void {
-    if (!this.subscribers.has(catName)) this.subscribers.set(catName, callback);
-    return () => this.unsubscribe(catName);
-  }
-
-  unsubscribe(catName: string) {
-    if (this.subscribers.has(catName)) this.subscribers.delete(catName);
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach((callback) => callback(this.categories));
   }
 
   getCategories(): Map<string, boolean> {
@@ -52,6 +39,13 @@ class CategoryService {
       show != undefined ? show : !this.categories.get(category)
     );
     this.notifySubscribers();
+    dataService.handleBlackListCategory(category, !(this.categories.get(category) ?? true));
+  }
+
+  getInvisibleCategories(): string[] {
+    return Array.from(this.categories.entries())
+      .filter(([_, visible]) => !visible)
+      .map(([category]) => category);
   }
 }
 

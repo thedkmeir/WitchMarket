@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { sortTypes, sortService } from "../services/SortService";
+import { sortService } from "../services/SortService";
 import "./SortButton.scss";
 import { ArrowUpDown } from "lucide-react";
+import { sortTypes } from "../services/tools/Enums";
 
 export default function SortButton() {
   const [sortType, setSortType] = useState(0);
@@ -13,8 +14,8 @@ export default function SortButton() {
   }
 
   useEffect(() => {
-    const unsubscribe = sortService.subscribe((sortType) => {
-      const index = sortTypes.indexOf(sortType);
+    const unsubscribe = sortService.subscribe("SortButton", () => {
+      const index = sortTypes.indexOf(sortService.getSortIndex());
       if (index !== -1) setSortType(index);
     });
     return () => {

@@ -3,9 +3,11 @@ import { inStockService } from "../../services/InStockService";
 import "./CheckBox.scss";
 
 export default function InStockCheckBox({
+  id,
   string,
   defaultCheckedState,
 }: {
+  id: string;
   string: string | null;
   defaultCheckedState?: boolean;
 }) {
@@ -18,17 +20,16 @@ export default function InStockCheckBox({
     inStockService.setInStock(isChecked);
   }
 
-  function handleRemoteCheckBoxChange(val: boolean) {
-    if (!string) return;
-    setCheckboxState(val);
-    const checkbox = document.getElementById(string) as HTMLInputElement;
-    if (checkbox) {
-      checkbox.checked = val !== undefined ? val : false;
-    }
-  }
-
   useEffect(() => {
-    const unsubscribe = inStockService.subscribe(handleRemoteCheckBoxChange);
+    const unsubscribe = inStockService.subscribe(id, () => {
+      if (!string) return;
+      const val = inStockService.getInStock();
+      setCheckboxState(val);
+      const checkbox = document.getElementById(string) as HTMLInputElement;
+      if (checkbox) {
+        checkbox.checked = val !== undefined ? val : false;
+      }
+    });
     return () => {
       unsubscribe();
     };

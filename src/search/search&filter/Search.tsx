@@ -7,19 +7,17 @@ export default function Search() {
     searchService.setSearchTerm(arg);
   }
 
-  function handleRemoteTextChanged(arg: any) {
-    // change the input value
-    const input = document.getElementById("query") as HTMLInputElement;
-    if (!input) return;
-    if (arg === input.value) return;
-    input.value = arg;
-
-    const event = new Event("input", { bubbles: true });
-    input.dispatchEvent(event);
-  }
-
   useEffect(() => {
-    const unsubscribe = searchService.subscribe(handleRemoteTextChanged);
+    const unsubscribe = searchService.subscribe("Search", () => {
+      const searchTerm = searchService.getSearchTerm();
+      const input = document.getElementById("query") as HTMLInputElement;
+      if (!input) return;
+      if (searchTerm === input.value) return;
+      input.value = searchTerm;
+
+      const event = new Event("input", { bubbles: true });
+      input.dispatchEvent(event);
+    });
     return () => {
       unsubscribe();
     };

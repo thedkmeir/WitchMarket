@@ -1,41 +1,22 @@
-export enum SortType {
-  AtoZ = "A-Z",
-  ZtoA = "Z-A",
-  HPrice = "Highest Price",
-  LPrice = "Lowest Price",
-}
-export const sortTypes = Object.values(SortType);
+import { Service } from "./Service";
+import { SortType } from "./tools/Enums";
 
-type EnumCallback = (sortType: SortType) => void;
-
-class SortService {
+class SortService extends Service {
   private static instance: SortService;
-  private subscribers: EnumCallback[] = [];
-  private sortIndex: SortType = SortType.AtoZ;
-
-  constructor() {}
-
-  clear() {
-    this.sortIndex = SortType.AtoZ;
-    this.notifySubscribers();
-  }
-
   static getInstance(): SortService {
     if (!SortService.instance) SortService.instance = new SortService();
     return SortService.instance;
   }
 
-  subscribe(callback: EnumCallback): () => void {
-    this.subscribers.push(callback);
-    return () => this.unsubscribe(callback);
+  private sortIndex: SortType = SortType.AtoZ;
+
+  constructor() {
+    super();
   }
 
-  unsubscribe(callback: EnumCallback) {
-    this.subscribers = this.subscribers.filter((cb) => cb !== callback);
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach((callback) => callback(this.sortIndex));
+  clear() {
+    this.sortIndex = SortType.AtoZ;
+    this.notifySubscribers();
   }
 
   getSortIndex(): SortType {
@@ -50,3 +31,5 @@ class SortService {
 }
 
 export const sortService = SortService.getInstance();
+export { SortType };
+

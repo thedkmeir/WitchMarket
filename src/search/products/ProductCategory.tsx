@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Product } from "../services/DataService";
+import { Product } from "../services/tools/Classes";
 import ProductRow from "../products/ProductRow";
 import "./ProductCategory.scss";
 import { cartService } from "../services/CartService";

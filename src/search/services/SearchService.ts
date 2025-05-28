@@ -1,33 +1,21 @@
-type StringCallback = (term: string) => void;
+import { Service } from "./Service";
 
-class SearchService {
+class SearchService extends Service {
   private static instance: SearchService;
-  private subscribers: StringCallback[] = [];
-  private searchTerm: string = "";
-
-  constructor() {}
-
-  clear() {
-    this.searchTerm = "";
-    this.notifySubscribers();
-  }
-
   static getInstance(): SearchService {
     if (!SearchService.instance) SearchService.instance = new SearchService();
     return SearchService.instance;
   }
 
-  subscribe(callback: StringCallback): () => void {
-    this.subscribers.push(callback);
-    return () => this.unsubscribe(callback);
+  private searchTerm: string = "";
+
+  constructor() {
+    super();
   }
 
-  unsubscribe(callback: StringCallback) {
-    this.subscribers = this.subscribers.filter((cb) => cb !== callback);
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach((callback) => callback(this.searchTerm));
+  clear() {
+    this.searchTerm = "";
+    this.notifySubscribers();
   }
 
   getSearchTerm(): string {

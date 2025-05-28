@@ -1,36 +1,23 @@
-type RangeCallback = (range: number[]) => void;
+import { Service } from "./Service";
 
-class RangeService {
+class RangeService extends Service {
   private static instance: RangeService;
-  private subscribers: RangeCallback[] = [];
+  static getInstance(): RangeService {
+    if (!RangeService.instance) RangeService.instance = new RangeService();
+    return RangeService.instance;
+  }
+
   private Range: number[] = [];
   private InitRange: number[] = [];
 
   constructor() {
+    super();
     this.clear();
   }
 
   clear() {
     this.Range = this.InitRange;
     this.notifySubscribers();
-  }
-
-  static getInstance(): RangeService {
-    if (!RangeService.instance) RangeService.instance = new RangeService();
-    return RangeService.instance;
-  }
-
-  subscribe(callback: RangeCallback): () => void {
-    this.subscribers.push(callback);
-    return () => this.unsubscribe(callback);
-  }
-
-  unsubscribe(callback: RangeCallback) {
-    this.subscribers = this.subscribers.filter((cb) => cb !== callback);
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach((callback) => callback(this.Range));
   }
 
   getRangeNumbers(): number[] {
@@ -51,7 +38,7 @@ class RangeService {
   getInitRangeHighest(): number {
     return this.InitRange[1];
   }
-  
+
   getInitRangeLowest(): number {
     return this.InitRange[0];
   }

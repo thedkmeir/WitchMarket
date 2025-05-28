@@ -21,19 +21,19 @@ export default function FilterCheckBox({
   }
 
   useEffect(() => {
-    const unsubscribe = categoryService.subscribe(
-      categoryName,
-      (map: Map<string, boolean>) => {
-        if (!categoryName) return;
-        const val = map.get(categoryName);
-        if (val === checkboxState) return;
-        setCheckboxState(val);
-        const checkbox = document.getElementById(categoryName) as HTMLInputElement;
-        if (checkbox) {
-          checkbox.checked = val !== undefined ? val : false;
-        }
+    const unsubscribe = categoryService.subscribe(categoryName, () => {
+      const map = categoryService.getCategories();
+      if (!categoryName) return;
+      const val = map.get(categoryName);
+      if (val === checkboxState) return;
+      setCheckboxState(val);
+      const checkbox = document.getElementById(
+        categoryName
+      ) as HTMLInputElement;
+      if (checkbox) {
+        checkbox.checked = val !== undefined ? val : false;
       }
-    );
+    });
     return () => {
       unsubscribe();
     };

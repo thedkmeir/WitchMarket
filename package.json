@@ -1,7 +1,7 @@
 {
-  "name": "my-react-app",
+  "name": "WitchMarket",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "homepage": "https://thedkmeir.github.io/WitchMarket",
   "scripts": {

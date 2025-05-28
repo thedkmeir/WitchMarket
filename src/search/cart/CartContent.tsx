@@ -12,8 +12,8 @@ export default function CartContent() {
   );
 
   useEffect(() => {
-    const unsubscribe = cartService.subscribe((cart) => {
-      const newCart = new Map<string, number>(cart);
+    const unsubscribe = cartService.subscribe("CartContent", () => {
+      const newCart = new Map<string, number>(cartService.getCart());
       setCart(newCart);
       setTotalPrice(cartService.getTotalCost());
     });

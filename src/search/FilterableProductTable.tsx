@@ -1,11 +1,11 @@
 import ProductCategory from "./products/ProductCategory";
+import { dataService } from "./services/DataService";
 import { categoryService } from "./services/CategoryService";
 import "./FilterableProductTable.scss";
 import { useEffect, useState } from "react";
 import Search from "./search&filter/Search";
 import { motion, AnimatePresence } from "framer-motion";
 import FilterContainer from "./search&filter/FilterContainer";
-import { dataService } from "./services/DataService";
 
 export default function FilterableProductTable() {
   const [categories, setCategories] = useState<string[]>(

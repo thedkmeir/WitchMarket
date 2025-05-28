@@ -3,6 +3,8 @@ import { rangeService } from "../services/RangeService";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css"; // <- REQUIRED
 import "./PriceRangeSlider.scss"; // your custom overrides
+import { dataService } from "../services/DataService";
+import { data } from "framer-motion/client";
 
 export default function PriceRangeSlider() {
   const minPrice = rangeService.getInitRangeLowest();
@@ -17,7 +19,8 @@ export default function PriceRangeSlider() {
   }
 
   useEffect(() => {
-    const unsubscribe = rangeService.subscribe((value: number[]) => {
+    const unsubscribe = rangeService.subscribe("PriceRangeSlider", () => {
+      const value = rangeService.getRangeNumbers() as [number, number];
       setRange([value[0], value[1]]);
     });
     return () => unsubscribe();
@@ -25,9 +28,7 @@ export default function PriceRangeSlider() {
 
   return (
     <div className="priceRangeSlider">
-      <span style={{ marginRight: "8px", paddingLeft: "4px" }}>
-        {range[0]}$
-      </span>
+      <span style={{ marginRight: "8px" }}>{range[0]}$</span>
       <RangeSlider
         min={minPrice}
         max={maxPrice}
@@ -36,9 +37,7 @@ export default function PriceRangeSlider() {
         onInput={(value) => handleRangeChange(value as [number, number])}
         className="customRangeSlider"
       />
-      <span style={{ marginLeft: "8px", paddingRight: "4px" }}>
-        {range[1]}$
-      </span>
+      <span style={{ marginLeft: "8px" }}>{range[1]}$</span>
     </div>
   );
 }

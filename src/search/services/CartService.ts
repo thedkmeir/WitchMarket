@@ -1,36 +1,23 @@
 import { dataService } from "./DataService";
+import { Service } from "./Service";
 
-type MapCallback = (term: Map<string, number>) => void;
-
-class CartService {
+class CartService extends Service {
   private static instance: CartService;
-  private subscribers: MapCallback[] = [];
-  private itemList: Map<string, number> = new Map();
-  private totalCost: number = 0;
-
-  constructor() {}
-
-  clear() {
-    this.itemList.clear();
-    this.notifySubscribers();
-  }
-
   static getInstance(): CartService {
     if (!CartService.instance) CartService.instance = new CartService();
     return CartService.instance;
   }
 
-  subscribe(callback: MapCallback): () => void {
-    this.subscribers.push(callback);
-    return () => this.unsubscribe(callback);
+  private itemList: Map<string, number> = new Map();
+  private totalCost: number = 0;
+
+  constructor() {
+    super();
   }
 
-  unsubscribe(callback: MapCallback) {
-    this.subscribers = this.subscribers.filter((cb) => cb !== callback);
-  }
-
-  private notifySubscribers() {
-    this.subscribers.forEach((callback) => callback(new Map(this.itemList)));
+  clear() {
+    this.itemList.clear();
+    this.notifySubscribers();
   }
 
   getCart(): Map<string, number> {

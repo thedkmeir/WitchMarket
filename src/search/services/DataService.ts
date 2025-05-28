@@ -1,14 +1,10 @@
 import { inStockService } from "./InStockService";
 import { rangeService } from "./RangeService";
 import { searchService } from "./SearchService";
-import { sortService, SortType } from "./SortService";
-
-export type Product = {
-  category: string;
-  price: number;
-  stocked: boolean;
-  name: string;
-};
+import { sortService } from "./SortService";
+import { Service } from "./Service";
+import { Product } from "./tools/Classes";
+import { SortType } from "./tools/Enums";
 
 const products: Product[] = [
   // Haunted Fruits
@@ -158,14 +154,22 @@ const products: Product[] = [
   },
 ];
 
-type ProductStoreVoidCallback = () => void;
-
-class DataService {
+class DataService extends Service {
   private static instance: DataService;
+  static getInstance(): DataService {
+    if (!DataService.instance) {
+      DataService.instance = new DataService();
+    }
+    return DataService.instance;
+  }
+
   public storeCatalog: Map<string, Product[]> = new Map();
-  private subscribers: Map<string, ProductStoreVoidCallback> = new Map();
+  private storeCatalogTotalCount: number = 0;
+  private storeCatalogFilteredCount: number = 0;
+  private blackListedCategories: string[] = [];
 
   constructor() {
+    super();
     let highestPrice: number = 0;
     let lowestPrice: number = 0;
     this.storeCatalog = new Map();
@@ -177,35 +181,34 @@ class DataService {
       this.storeCatalog.get(category)?.push(product);
       highestPrice = Math.max(highestPrice, product.price);
       lowestPrice = Math.min(lowestPrice || product.price, product.price);
+      this.storeCatalogTotalCount++;
     });
+
+    this.storeCatalogFilteredCount = this.storeCatalogTotalCount;
     lowestPrice = Math.floor(lowestPrice);
     highestPrice = Math.ceil(highestPrice);
 
-    this.sortProducts(sortService.getSortIndex());
+    this.sortProducts();
 
     rangeService.setInitRangeNumbers([lowestPrice, highestPrice]);
 
-    searchService.subscribe(this.updateFilteredCatalog.bind(this));
-    inStockService.subscribe(this.updateFilteredCatalog.bind(this));
-    rangeService.subscribe(this.updateFilteredCatalog.bind(this));
-    sortService.subscribe(this.sortProducts.bind(this));
+    searchService.subscribe(
+      "DataService",
+      this.updateFilteredCatalog.bind(this)
+    );
+    inStockService.subscribe(
+      "DataService",
+      this.updateFilteredCatalog.bind(this)
+    );
+    rangeService.subscribe(
+      "DataService",
+      this.updateFilteredCatalog.bind(this)
+    );
+    sortService.subscribe("DataService", this.sortProducts.bind(this));
   }
 
-  subscribe(subID: string, callback: ProductStoreVoidCallback): () => void {
-    if (!this.subscribers.has(subID)) this.subscribers.set(subID, callback);
-    return () => this.unsubscribe(subID);
-  }
-
-  unsubscribe(subID: string) {
-    if (this.subscribers.has(subID)) this.subscribers.delete(subID);
-  }
-
-  private notifySubscribers() {
-    if (this.subscribers.size === 0) return;
-    this.subscribers.forEach((callback) => callback());
-  }
-
-  updateFilteredCatalog() {
+  async updateFilteredCatalog() {
+    this.storeCatalogFilteredCount = 0;
     const searchTerm = searchService.getSearchTerm().toLowerCase();
     const showOnlyInStock = inStockService.getInStock();
     const range = rangeService.getRangeNumbers() as [number, number];
@@ -216,12 +219,16 @@ class DataService {
       if (showOnlyInStock && !product.stocked) return;
       if (product.price < range[0] || product.price > range[1]) return;
       if (!this.storeCatalog.has(category)) this.storeCatalog.set(category, []);
+      if (!this.blackListedCategories.includes(category))
+        this.storeCatalogFilteredCount++;
       this.storeCatalog.get(category)?.push(product);
     });
-    this.sortProducts(sortService.getSortIndex());
+
+    this.sortProducts();
   }
 
-  sortProducts(sortType: SortType) {
+  sortProducts() {
+    const sortType: SortType = sortService.getSortIndex();
     const updatedCatalog = new Map<string, Product[]>();
 
     this.storeCatalog.forEach((products, category) => {
@@ -243,13 +250,6 @@ class DataService {
 
     this.storeCatalog = updatedCatalog;
     this.notifySubscribers();
-  }
-
-  static getInstance(): DataService {
-    if (!DataService.instance) {
-      DataService.instance = new DataService();
-    }
-    return DataService.instance;
   }
 
   getStoreCatalog(): Map<string, Product[]> {
@@ -278,6 +278,32 @@ class DataService {
     return Array.from(this.storeCatalog.keys()).filter(
       (category) => (this.storeCatalog.get(category) ?? []).length > 0
     );
+  }
+
+  getStoreCatalogTotalCount(): number {
+    return this.storeCatalogTotalCount;
+  }
+
+  getStoreCatalogFilteredCount(): number {
+    return this.storeCatalogFilteredCount;
+  }
+
+  handleBlackListCategory(category: string, isBlackListed: boolean) {
+    const count = this.storeCatalog.get(category)?.length || 0;
+    if (isBlackListed) {
+      this.blackListedCategories.push(category);
+      this.storeCatalogFilteredCount -= count;
+    } else {
+      this.blackListedCategories = this.blackListedCategories.filter(
+        (cat) => cat !== category
+      );
+      this.storeCatalogFilteredCount += count;
+    }
+    this.notifySubscribers();
+  }
+
+  clearBlackList() {
+    this.blackListedCategories = [];
   }
 }
 
