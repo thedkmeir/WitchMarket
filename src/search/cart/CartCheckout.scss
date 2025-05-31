@@ -1,7 +1,7 @@
 .cartCheckout {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
   height: 100%;
   overflow-y: auto;
@@ -16,20 +16,37 @@
     padding: 5px 0px;
   }
 
-  button {
-    align-self: center;
-    margin-top: auto;
-    padding: 6px;
-    background-color: var(--color-2);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 8px;
   }
 
-  .content{
+  .rowBig {
+    @extend .row;
+    font-size: 18px;
+  }
+
+  .rowSmall {
+    @extend .row;
+    font-size: 14px;
+  }
+
+  .hoverText {
+    color: var(--color-1); /* Blue like a link */
+    cursor: pointer; /* Show hand cursor on hover */
+    transition: color 0.2s; /* Smooth color change */
+  }
+
+  .hoverText:hover {
+    color: var(--color-4-brighter); /* Change to orange on hover, or your accent color */
+    text-shadow: 0 2px 8px rgba(255, 102, 0, 0.15); /* Soft glow on hover (optional) */
+    text-decoration: underline; /* Optional: underline like a link */
+  }
+
+    .content {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -46,7 +63,6 @@
     align-items: center;
     margin: 8px;
     margin-top: auto;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
 }
-

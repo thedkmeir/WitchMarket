@@ -77,6 +77,14 @@ class CartService extends Service {
     return this.totalCost;
   }
 
+  getUniqueItemsCount(): number {
+    return this.itemList.size;
+  }
+
+  getUniqueItems(): string[] {
+    return Array.from(this.itemList.keys());
+  }
+
   private fixTotalCount() {
     this.totalCost = Math.round((this.totalCost + Number.EPSILON) * 100) / 100;
   }
