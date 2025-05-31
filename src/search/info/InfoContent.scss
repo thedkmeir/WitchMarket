@@ -5,4 +5,24 @@
   width: 100%;
   height: 100%;
   overflow-y: auto;
+
+  h2 {
+    // make this stick to the top please
+    position: sticky;
+    top: 0;
+    margin: 0px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 8px;
+  }
+
+  .button {
+    width: fit-content;
+    position: relative;
+  }
 }

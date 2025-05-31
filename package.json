@@ -1,7 +1,8 @@
 {
   "name": "WitchMarket",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "lastUpdate": "31/05/25",
   "type": "module",
   "homepage": "https://thedkmeir.github.io/WitchMarket",
   "scripts": {
@@ -38,6 +39,6 @@
   },
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "eslint.config.js",
-  "author": "",
+  "author": "Dean Meir",
   "license": "ISC"
 }

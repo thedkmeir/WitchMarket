@@ -22,8 +22,8 @@ export default function InfoContainer({
         animate={isOpen ? "open" : "closed"}
         variants={{
           open: {
-            width: 200,
-            height: 200,
+            width: 210,
+            height: 210,
             borderRadius: "16px",
           },
           closed: {
