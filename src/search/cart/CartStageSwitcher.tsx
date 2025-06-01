@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CartContent from "./CartContent";
 import FinalCheckout from "./CartCheckout";
-import CircularIconButton from "../products/buttons/CircularIconButton";
+import CircularIconButton from "../inputs/CircularIconButton";
 import { ArrowLeft, ArrowRight, CircleArrowOutDownRight } from "lucide-react";
 import "./CartStageSwitcher.scss";
 import { cartService } from "../services/CartService";

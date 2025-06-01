@@ -1,5 +1,5 @@
 import "./CountControl.scss";
-import CircularIconButton from "./buttons/CircularIconButton";
+import CircularIconButton from "../inputs/CircularIconButton";
 import { Minus, Plus } from "lucide-react";
 
 export default function CountControl({

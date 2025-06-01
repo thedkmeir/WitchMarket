@@ -1,6 +1,6 @@
 import "./infoContent.scss";
 import * as info from "../../../package.json";
-import CircularIconButton from "../products/buttons/CircularIconButton";
+import CircularIconButton from "../inputs/CircularIconButton";
 import { CircleArrowOutUpRight } from "lucide-react";
 
 export default function infoContent({ onClose }: { onClose: () => void }) {

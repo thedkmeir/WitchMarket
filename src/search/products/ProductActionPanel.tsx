@@ -1,7 +1,7 @@
 import ProductRow from "./ProductRow";
 import "./ProductActionPanel.scss";
 import { Trash2 } from "lucide-react";
-import CircularIconButton from "./buttons/CircularIconButton";
+import CircularIconButton from "../inputs/CircularIconButton";
 import CountControl from "./CountControl";
 import { cartService } from "../services/CartService";
 import { dataService } from "../services/DataService";

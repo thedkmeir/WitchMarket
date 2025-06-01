@@ -3,8 +3,6 @@ import { cartService } from "../services/CartService";
 import "./CartCheckout.scss";
 import { extraFeesService } from "../services/ExtraFeesService";
 import { Fee } from "../services/tools/Classes";
-import CircularIconButton from "../products/buttons/CircularIconButton";
-import { CircleHelp } from "lucide-react";
 import { Tooltip } from "react-tooltip";
 
 export default function CartCheckout() {
@@ -14,7 +12,7 @@ export default function CartCheckout() {
   const [cartFees, setCartFees] = useState<Fee[]>(
     extraFeesService.getFeesList()
   );
-  const [finalCartPrice, setfinalCartPrice] = useState<number>(
+  const [finalCartPrice, setFinalCartPrice] = useState<number>(
     extraFeesService.getFinalPrice()
   );
 
@@ -22,7 +20,7 @@ export default function CartCheckout() {
     const unsubscribe = extraFeesService.subscribe("CartCheckout", () => {
       setCartPrice(cartService.getTotalCost());
       setCartFees(extraFeesService.getFeesList());
-      setfinalCartPrice(extraFeesService.getFinalPrice());
+      setFinalCartPrice(extraFeesService.getFinalPrice());
     });
     return () => {
       unsubscribe();
@@ -62,8 +60,6 @@ export default function CartCheckout() {
 
       <div className="row">
         <div>Total taxes and fees:</div>
-        {/* fix the number to a mximum of .00 */}
-
         <div>{(finalCartPrice - cartPrice).toFixed(2)}$</div>
       </div>
       <div className="rowBig">

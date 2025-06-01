@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { rangeService } from "../services/RangeService";
 import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css"; // <- REQUIRED
-import "./PriceRangeSlider.scss"; // your custom overrides
-import { dataService } from "../services/DataService";
-import { data } from "framer-motion/client";
+import "react-range-slider-input/dist/style.css";
+import "./PriceRangeSlider.scss";
 
 export default function PriceRangeSlider() {
   const minPrice = rangeService.getInitRangeLowest();

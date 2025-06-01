@@ -7,11 +7,8 @@ import "./FloatingInfo.scss";
 
 export default function FloatingInfo() {
   const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleinfo = () => setIsOpen(!isOpen);
-  const closeinfo = () => setIsOpen(false);
-  const openinfo = () => setIsOpen(true);
-
+  const closeInfo = () => setIsOpen(false);
+  const openInfo = () => setIsOpen(true);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -19,9 +16,7 @@ export default function FloatingInfo() {
         setIsOpen(false);
       }
     }
-
     window.addEventListener("keydown", handleKeyDown);
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
@@ -31,9 +26,9 @@ export default function FloatingInfo() {
     <InfoContainer isOpen={isOpen} onClick={() => {}}>
       <AnimatePresence mode="wait">
         {isOpen ? (
-          <InfoContent key="content" onClose={closeinfo} />
+          <InfoContent key="content" onClose={closeInfo} />
         ) : (
-          <InfoIcon key="icon" onClose={openinfo} />
+          <InfoIcon key="icon" onClose={openInfo} />
         )}
       </AnimatePresence>
     </InfoContainer>

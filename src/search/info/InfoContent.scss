@@ -7,10 +7,11 @@
   overflow-y: auto;
 
   h2 {
-    // make this stick to the top please
-    position: sticky;
-    top: 0;
-    margin: 0px;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+    background: var(--color-3-bright);
+    margin: unset;
   }
 
   .row {
@@ -24,5 +25,6 @@
   .button {
     width: fit-content;
     position: relative;
+    bottom: 0px;
   }
 }

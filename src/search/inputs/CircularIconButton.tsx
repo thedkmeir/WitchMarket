@@ -2,7 +2,7 @@ import { ReactNode, useId } from "react";
 import { Tooltip, PlacesType } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import "./CircularIconButton.scss";
-import "../../../index.scss"
+
 export default function CircularIconButton({
   onChange,
   icon,
