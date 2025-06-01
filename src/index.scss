@@ -5,10 +5,10 @@
 
 @use "sass:color";
 
-$color1: #210F37;
-$color2: #4F1C51;
-$color3: #A55B4B;
-$color4: #DCA06D;
+$color1: #210f37;
+$color2: #4f1c51;
+$color3: #a55b4b;
+$color4: #dca06d;
 
 :root {
   --color-1: #{$color1};
@@ -22,18 +22,19 @@ $color4: #DCA06D;
   --color-3: #{$color3};
   --color-3-bright: #{color.scale($color3, $lightness: 20%)};
   --color-3-brighter: #{color.scale($color3, $lightness: 40%)};
-  
+
   --color-4: #{$color4};
   --color-4-bright: #{color.scale($color4, $lightness: 20%)};
   --color-4-brighter: #{color.scale($color4, $lightness: 40%)};
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-  line-height: 1.5;
-  font-weight: 400;
-  font-size: medium;
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.25;
+  font-size: 22px;
 
   color-scheme: light dark;
   color: black;
@@ -84,5 +85,23 @@ body {
 @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// fix input text not taking my font family
+.input {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.25;
+  font-size: 22px;
+  &::placeholder {
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1.25;
+    font-size: 22px;
   }
 }

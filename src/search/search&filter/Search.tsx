@@ -36,7 +36,7 @@ export default function Search() {
           id="query"
           className="input"
           type="search"
-          placeholder="Search..."
+          placeholder="Seek..."
           name="searchbar"
           onChange={(e) => handleTextChanged(e.target.value)}
           autoComplete="off"

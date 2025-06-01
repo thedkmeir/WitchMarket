@@ -18,12 +18,12 @@ export default function FilterContainer() {
       <div className="filterContainer">
         <div className="FilterRow" style={{ justifyContent: "space-between" }}>
           <InStockCheckBox
-            string={"Show Only in-stock"}
+            string={"Reveal Only in-stock"}
             defaultCheckedState={false}
             id={"FilterContainer Show Only in-stock"}
           />
           <TextButton
-            text={"Clear All Filters"}
+            text={"Lift All Filters"}
             onClick={() => {
               categoryService.clear();
               searchService.clear();

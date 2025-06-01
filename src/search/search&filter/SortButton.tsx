@@ -19,7 +19,7 @@ export default function SortButton() {
 
   return (
     <TextButton
-      text={"Sort By: " + sortTypes[sortType]}
+      text={"Arrange By: " + sortTypes[sortType]}
       icon={
         <ArrowUpDown
           size={20}

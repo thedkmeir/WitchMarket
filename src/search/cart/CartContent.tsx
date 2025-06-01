@@ -29,10 +29,10 @@ export default function CartContent() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h3>Your Cart</h3>
+      <h3>Your Cauldron</h3>
 
       {cart === undefined || cart.size === 0 ? (
-        <div className="emptyCart">Your cart is empty</div>
+        <div className="emptyCart">Your cauldron is empty</div>
       ) : (
         <AnimatePresence>
           <div className="content">
