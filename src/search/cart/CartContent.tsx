@@ -22,6 +22,8 @@ export default function CartContent() {
     };
   }, []);
 
+  // TODO when addin new items... i want the cart to stick to the bottom so i can see the new item added
+
   return (
     <motion.div
       className="cartContent"

@@ -4,6 +4,7 @@ import "./CartCheckout.scss";
 import { extraFeesService } from "../services/ExtraFeesService";
 import { Fee } from "../services/tools/Classes";
 import { Tooltip } from "react-tooltip";
+import { useModal } from "../modals/ModalManager";
 
 export default function CartCheckout() {
   const [cartPrice, setCartPrice] = useState<number>(
@@ -15,6 +16,8 @@ export default function CartCheckout() {
   const [finalCartPrice, setFinalCartPrice] = useState<number>(
     extraFeesService.getFinalPrice()
   );
+
+  const { openModal } = useModal();
 
   useEffect(() => {
     const unsubscribe = extraFeesService.subscribe("CartCheckout", () => {
@@ -66,6 +69,13 @@ export default function CartCheckout() {
         <div>Final Price:</div>
         <div>{finalCartPrice}$</div>
       </div>
+
+{/* TODO make this button beatiful.... */}
+      <button
+        onClick={() => openModal({ type: "checkout", params: { orderId: "" } })}
+      >
+        Go to Checkout
+      </button>
     </div>
   );
 }
