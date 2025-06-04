@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { FaShoppingCart } from "react-icons/fa";
 import "./CartIcon.scss";
 
 export default function CartIcon({ onClose }: { onClose: () => void }) {

@@ -1,8 +1,8 @@
 {
   "name": "WitchMarket",
   "private": true,
-  "version": "0.0.4",
-  "lastUpdate": "01/06/25",
+  "version": "0.0.5",
+  "lastUpdate": "04/06/25",
   "type": "module",
   "homepage": "https://thedkmeir.github.io/WitchMarket",
   "scripts": {
