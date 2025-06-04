@@ -16,7 +16,7 @@ export default function CartIcon({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0 }}
       > 
         {/* <FaShoppingCart size={20} /> */}
-        <img src="public/assets/cauldron.svg" alt="My Icon" width="38" height="38" />
+        <img src="ßassets/cauldron.svg" alt="My Icon" width="38" height="38" />
       </motion.div>
     </div>
   );
