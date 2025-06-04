@@ -40,12 +40,14 @@
   }
 
   .hoverText:hover {
-    color: var(--color-4-brighter); /* Change to orange on hover, or your accent color */
+    color: var(
+      --color-4-brighter
+    ); /* Change to orange on hover, or your accent color */
     text-shadow: 0 2px 8px rgba(255, 102, 0, 0.15); /* Soft glow on hover (optional) */
     text-decoration: underline; /* Optional: underline like a link */
   }
 
-    .content {
+  .content {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -63,5 +65,12 @@
     margin: 8px;
     margin-top: auto;
     margin-bottom: 0px;
+  }
+
+  .middleMe {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 }

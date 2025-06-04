@@ -13,10 +13,11 @@ export default function CartIcon({ onClose }: { onClose: () => void }) {
       <motion.div
         className="cartIcon"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, padding: "17px", borderRadius: "50%" }}
+        animate={{ opacity: 1, padding: "15px", borderRadius: "50%" }}
         exit={{ opacity: 0 }}
       > 
-        <FaShoppingCart size={20} />
+        {/* <FaShoppingCart size={20} /> */}
+        <img src="src/assets/cauldron.svg" alt="My Icon" width="38" height="38" />
       </motion.div>
     </div>
   );

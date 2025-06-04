@@ -6,7 +6,7 @@
     background-color: var(--color-3);
     color: black;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-    z-index: 1000;
+    z-index: 10;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@
     @media (min-width: 1920px) {
       right: calc(
         50% - 900px
-      ); // Adjust as needed to bring it closer to the center
+      );
     }
   }
 
@@ -23,7 +23,6 @@
     @extend .floatingCartContainer;
     cursor: pointer;
 
-    // grow animation stuff might help reduce blurr
     will-change: transform;
     backface-visibility: hidden;
     transform: translateZ(0);

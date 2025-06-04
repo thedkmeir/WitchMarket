@@ -5,6 +5,7 @@ import { extraFeesService } from "../services/ExtraFeesService";
 import { Fee } from "../services/tools/Classes";
 import { Tooltip } from "react-tooltip";
 import { useModal } from "../modals/ModalManager";
+import TextButton from "../inputs/TextButton";
 
 export default function CartCheckout() {
   const [cartPrice, setCartPrice] = useState<number>(
@@ -69,13 +70,14 @@ export default function CartCheckout() {
         <div>Final Price:</div>
         <div>{finalCartPrice}$</div>
       </div>
-
-{/* TODO make this button beatiful.... */}
-      <button
-        onClick={() => openModal({ type: "checkout", params: { orderId: "" } })}
-      >
-        Go to Checkout
-      </button>
+      <div className="middleMe">
+        <TextButton 
+          text={"Go to Checkout"}
+          onClick={() =>
+            openModal({ type: "checkout", params: { orderId: "" } })
+          }
+        ></TextButton>
+      </div>
     </div>
   );
 }
