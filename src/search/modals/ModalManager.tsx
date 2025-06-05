@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { cartService } from "../services/CartService";
+import { X } from "lucide-react";
+import CircularIconButton from "../inputs/CircularIconButton";
 
 // TODO each one of these should go to their own file with the same modal component...
 type CheckoutParams = { orderId: string };
@@ -51,19 +53,29 @@ export function ModalManager({ children }: { children: ReactNode }) {
       {modalStack.map((modal, i) =>
         ReactDOM.createPortal(
           <div
-            className="modal-backdrop"
+            className="modalManager"
             key={i}
             onClick={() => {
               if (modal.dismissible) closeModal();
             }}
           >
             <div className="modal-window" onClick={(e) => e.stopPropagation()}>
-              {modal.dismissible && (
-                <button className="modal-close" onClick={closeModal}>
-                  ×
-                </button>
-              )}
-              <ModalContentSwitcher modal={modal} />
+              <div className="modalTopRow">
+                <div> text here </div>
+                <div>
+                  {modal.dismissible && (
+                    <CircularIconButton
+                      hoverText="Close"
+                      onChange={closeModal}
+                      hoverPosition="top"
+                      icon={<X size={18} strokeWidth={1.5} />}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="modalContent">
+                <ModalContentSwitcher modal={modal} />
+              </div>
             </div>
           </div>,
           document.body

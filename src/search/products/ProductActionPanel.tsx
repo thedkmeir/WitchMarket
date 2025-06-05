@@ -35,6 +35,7 @@ export default function ProductActionPanel({
             cartService.removeItem(productName);
           }}
           icon={<Trash2 size={18} strokeWidth={1.5} />}
+          padding={5}
         ></CircularIconButton>
       </div>
       <ProductRow

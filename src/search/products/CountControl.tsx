@@ -22,6 +22,7 @@ export default function CountControl({
             onChange && onChange(count - 1);
           }}
           icon={<Minus size={iconSize ? iconSize : 18} strokeWidth={1.5} />}
+          padding={5}
         ></CircularIconButton>
         <div>{count}</div>
         <CircularIconButton
@@ -29,6 +30,7 @@ export default function CountControl({
             onChange && onChange(count + 1);
           }}
           icon={<Plus size={iconSize ? iconSize : 18} strokeWidth={1.5} />}
+          padding={5}
         ></CircularIconButton>
       </div>
     </>

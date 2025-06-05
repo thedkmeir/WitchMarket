@@ -9,17 +9,19 @@ export default function CircularIconButton({
   hoverText = "",
   hoverPosition = "bottom",
   disabled = false, // <-- New prop, defaults to false
+  padding,
 }: {
   onChange?: () => void;
   icon?: ReactNode;
   hoverText?: string;
   hoverPosition?: PlacesType;
   disabled?: boolean;
+  padding?: number;
 }) {
   const tooltipId = useId();
 
   return (
-    <div className="CircularIconButton">
+    <div className="CircularIconButton" style={padding !== undefined ? { padding: `${padding}px` } : undefined}>
       <div className="customButtonWrapperCircle">
         <button
           type="button"

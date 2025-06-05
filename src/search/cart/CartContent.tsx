@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import ProductActionPanel from "../products/ProductActionPanel";
 import "./CartContent.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cartService } from "../services/CartService";
 import AnimatedCounter from "./animatedCounter/AnimatedCounter";
 
@@ -10,11 +10,12 @@ export default function CartContent() {
   const [totalPrice, setTotalPrice] = useState<number>(
     cartService.getTotalCost()
   );
+  const prevCartSize = useRef<number>(cart.size);
+  const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const unsubscribe = cartService.subscribe("CartContent", () => {
-      const newCart = new Map<string, number>(cartService.getCart());
-      setCart(newCart);
+      setCart(new Map(cartService.getCart()));
       setTotalPrice(cartService.getTotalCost());
     });
     return () => {
@@ -22,7 +23,11 @@ export default function CartContent() {
     };
   }, []);
 
-  // TODO when addin new items... i want the cart to stick to the bottom so i can see the new item added
+  useEffect(() => {
+    if (cart.size > prevCartSize.current && endRef.current)
+      endRef.current.scrollIntoView({ behavior: "smooth" });
+    prevCartSize.current = cart.size;
+  }, [cart]);
 
   return (
     <motion.div
@@ -57,6 +62,7 @@ export default function CartContent() {
                 );
               }
             )}
+            <div ref={endRef} />
           </div>
         </AnimatePresence>
       )}

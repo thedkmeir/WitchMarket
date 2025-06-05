@@ -20,6 +20,8 @@ export default function CartCheckout() {
 
   const { openModal } = useModal();
 
+  // TODO add a small segment where the user can select a faster shipping option
+
   useEffect(() => {
     const unsubscribe = extraFeesService.subscribe("CartCheckout", () => {
       setCartPrice(cartService.getTotalCost());
@@ -71,7 +73,7 @@ export default function CartCheckout() {
         <div>{finalCartPrice}$</div>
       </div>
       <div className="middleMe">
-        <TextButton 
+        <TextButton
           text={"Go to Checkout"}
           onClick={() =>
             openModal({ type: "checkout", params: { orderId: "" } })
