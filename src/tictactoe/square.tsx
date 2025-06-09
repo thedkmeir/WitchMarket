@@ -1,4 +1,4 @@
-import "./square.css"
+import "./square.scss"
 
 export default function Square({
   value,

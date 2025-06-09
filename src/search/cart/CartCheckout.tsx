@@ -7,8 +7,9 @@ import { useModal } from "../modals/ModalManager";
 import TextButton from "../inputs/TextButton";
 import CheckBox from "../inputs/CheckBox";
 import "./CartCheckout.scss";
+import AnimatedCounter from "./animatedCounter/AnimatedCounter";
 
-const moonRiftFee: Fee = {
+export const moonRiftFee: Fee = {
   category: "Delivery",
   nameOfFee: "Moon-Rift Delivery",
   price: 10,
@@ -45,7 +46,7 @@ export default function CartCheckout() {
 
   return (
     <div className="cartCheckout">
-      <h3>Checkout</h3>
+      <h3>Cauldron Compendium</h3>
 
       <div className="rowBig">
         <div>Total Items Price:</div>
@@ -60,7 +61,7 @@ export default function CartCheckout() {
               data-tooltip-id={fee.nameOfFee}
               data-tooltip-content={fee.description}
             >
-              {fee.nameOfFee}:
+              -{fee.nameOfFee}:
             </div>
             <Tooltip
               id={fee.nameOfFee}
@@ -88,17 +89,29 @@ export default function CartCheckout() {
       </div>
       <div className="row">
         <div>Total taxes and fees:</div>
-        <div>{(finalCartPrice - cartPrice).toFixed(2)}$</div>
+        <div>
+          <AnimatedCounter
+            value={finalCartPrice - cartPrice}
+            duration={1000}
+            rearDecorator="$"
+          />
+        </div>
       </div>
       <div className="rowBig">
         <div>Final Price:</div>
-        <div>{finalCartPrice}$</div>
+        <div>
+          <AnimatedCounter
+            value={finalCartPrice}
+            duration={1000}
+            rearDecorator="$"
+          />
+        </div>
       </div>
       <div className="middleMe">
         <TextButton
-          text={"Go to Checkout"}
+          text={"Cast Order"}
           onClick={() =>
-            openModal({ type: "checkout", params: { orderId: "" } })
+            openModal({ type: "checkout", params: { orderId: "" }, title: "Cast Order" })
           }
         ></TextButton>
       </div>

@@ -1,5 +1,5 @@
 .square {
-  background: #fff;
+  background: var(--color-4);
   color: black;
   border: 1px none #999;
   float: left;
@@ -17,6 +17,6 @@
 }
 
 .square:hover {
-  background: #646cff;
-  color: white;
+  background: var(--color-4-brighter);
+  color: black;
 }

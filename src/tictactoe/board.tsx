@@ -1,14 +1,12 @@
-import { useState } from "react";
-import "./board.css";
+import { useEffect, useState } from "react";
+import "./board.scss";
 import Square from "./square";
-import ResetButton from "./resetButton";
 
 export default function Board() {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
-  const [h1content, seth1Content] = useState("Its ×'s turn");
-  const [animate, setAnimate] = useState(false);
+  const [squares, setSquares] = useState<(string | null)[]>(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true); // Human always goes first ("×")
   const [isGameOver, setIsGameOver] = useState(false);
+
   const Winnerlines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -20,96 +18,135 @@ export default function Board() {
     [2, 4, 6],
   ];
 
-  function handleClick(i: number) {
-    if (isGameOver) return;
-
-    const squaresCopy = squares.slice();
-    const nextTurn = !xIsNext;
-    if (squaresCopy[i]) return;
-
-    squaresCopy[i] = getPlayer();
-    setSquares(squaresCopy);
-
-    if (calculateWinner(squaresCopy)) {
-      updateStatus(`Winner is ${getPlayer()}`);
-      setIsGameOver(true);
-      return;
-    }
-    if (isDraw(squaresCopy)) {
-      updateStatus("Game is Draw");
-      setIsGameOver(true);
-      return;
-    }
-
-    updateStatus(`Its ${getPlayer(nextTurn)}'s turn`);
-    setXIsNext((prev) => !prev);
-  }
-
-  function getPlayer(val?: boolean) {
-    if (val != undefined) {
-      return val ? "×" : "●";
-    }
-    return xIsNext ? "×" : "●";
-  }
-
-  function calculateWinner(squares: Array<string | null>) {
-    for (let i = 0; i < Winnerlines.length; i++) {
-      const [a, b, c] = Winnerlines[i];
-      if (
-        squares[a] &&
-        squares[a] === squares[b] &&
-        squares[a] === squares[c]
-      ) {
-        return squares[a];
+  function calculateWinner(sq: Array<string | null>) {
+    for (let [a, b, c] of Winnerlines) {
+      if (sq[a] && sq[a] === sq[b] && sq[a] === sq[c]) {
+        return sq[a];
       }
     }
     return null;
   }
 
-  function isDraw(squares: Array<string | null>) {
-    return squares.every((square) => square !== null);
+  function isDraw(sq: Array<string | null>) {
+    return sq.every((v) => v !== null);
   }
 
-  function resetGame() {
-    setSquares(Array(9).fill(null));
-    setXIsNext(true);
-    updateStatus("Its ×'s turn");
-    setIsGameOver(false);
+  function handleClick(i: number) {
+    if (isGameOver || !xIsNext || squares[i]) return;
+
+    const squaresCopy = squares.slice();
+    squaresCopy[i] = "×";
+    setSquares(squaresCopy);
+
+    // Check for human win/draw immediately after move
+    if (calculateWinner(squaresCopy) || isDraw(squaresCopy)) {
+      setIsGameOver(true);
+
+      // TODO if somehow the human wins, add the 15% off...
+      return;
+    }
+
+    setXIsNext(false);
   }
 
-  function updateStatus(newText: string) {
-    // Trigger fade out
-    setAnimate(true);
+  // BOT LOGIC: Runs automatically after human move
+  useEffect(() => {
+    if (!isGameOver && !xIsNext) {
+      // Bot makes its move after a short delay
+      setTimeout(() => {
+        const move = bestMove(squares);
+        if (move !== null) {
+          const newSquares = squares.slice();
+          newSquares[move] = "●";
+          setSquares(newSquares);
 
-    setTimeout(() => {
-      // Change the text after fade out ends
-      seth1Content(newText);
+          // Check if bot wins or game is draw
+          if (calculateWinner(newSquares) || isDraw(newSquares)) {
+            setIsGameOver(true);
+          } else {
+            setXIsNext(true);
+          }
+        }
+      }, 400); // Add a little delay for realism
+    }
+    // eslint-disable-next-line
+  }, [xIsNext, isGameOver, squares]);
 
-      // Fade back in
-      setAnimate(false);
-    }, 200); // match CSS transition time
+  // Minimax: Bot always plays optimally
+  function bestMove(board: (string | null)[]): number | null {
+    let bestScore = -Infinity;
+    let move: number | null = null;
+    for (let i = 0; i < 9; i++) {
+      if (!board[i]) {
+        board[i] = "●";
+        let score = minimax(board, 0, false);
+        board[i] = null;
+        if (score > bestScore) {
+          bestScore = score;
+          move = i;
+        }
+      }
+    }
+    return move;
   }
 
+  function minimax(board: (string | null)[], depth: number, isMaximizing: boolean): number {
+    const winner = calculateWinner(board);
+    if (winner === "●") return 1;
+    if (winner === "×") return -1;
+    if (isDraw(board)) return 0;
+
+    if (isMaximizing) {
+      let best = -Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (!board[i]) {
+          board[i] = "●";
+          best = Math.max(best, minimax(board, depth + 1, false));
+          board[i] = null;
+        }
+      }
+      return best;
+    } else {
+      let best = Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (!board[i]) {
+          board[i] = "×";
+          best = Math.min(best, minimax(board, depth + 1, true));
+          board[i] = null;
+        }
+      }
+      return best;
+    }
+  }
+
+  // --- UI ---
   return (
     <>
-      <h1 className={`status ${animate ? "fade" : ""}`}>{h1content}</h1>
-
-      {[0, 3, 6].map((rowStart) => (
-        <div className="board-row" key={rowStart}>
-          {[0, 1, 2].map((i) => {
-            const index = rowStart + i;
-            return (
-              <Square
-                key={index}
-                value={squares[index]}
-                onSquareClick={() => handleClick(index)}
-              />
-            );
-          })}
+      <div className="board">
+        {[0, 3, 6].map((rowStart) => (
+          <div className="board-row" key={rowStart}>
+            {[0, 1, 2].map((i) => {
+              const index = rowStart + i;
+              return (
+                <Square
+                  key={index}
+                  value={squares[index]}
+                  onSquareClick={() => handleClick(index)}
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      {isGameOver && (
+        <div style={{ marginTop: 16 }}>
+          {calculateWinner(squares)
+            ? calculateWinner(squares) === "×"
+              ? "YOU WIN?!?! IT IS IMPOSSIBLE!"
+              : "You lost... no 15% off for you!"
+            : "Draw! no one wins..."}
         </div>
-      ))}
-
-      <ResetButton onClick={resetGame} />
+      )}
     </>
   );
 }

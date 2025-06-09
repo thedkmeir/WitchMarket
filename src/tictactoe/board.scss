@@ -1,0 +1,28 @@
+.board {
+  .board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  .status {
+    margin-bottom: 10px;
+  }
+  .game {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .game-info {
+    margin-left: 20px;
+  }
+
+  .status {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+
+  .status.fade {
+    opacity: 0;
+  }
+}

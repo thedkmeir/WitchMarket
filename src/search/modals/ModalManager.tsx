@@ -3,18 +3,16 @@ import ReactDOM from "react-dom";
 import { cartService } from "../services/CartService";
 import { X } from "lucide-react";
 import CircularIconButton from "../inputs/CircularIconButton";
+import CheckoutModal, { CheckoutParams } from "./FinalCheckoutModal";
 
 // TODO each one of these should go to their own file with the same modal component...
-type CheckoutParams = { orderId: string };
 type PreferencesParams = { userId: string };
-type TrollParams = {};
 type CustomParams = { content: React.ReactNode };
 
 type ModalParams =
-  | { type: "checkout"; dismissible?: boolean; params: CheckoutParams }
-  | { type: "preferences"; dismissible?: boolean; params: PreferencesParams }
-  | { type: "troll"; dismissible?: boolean; params?: TrollParams }
-  | { type: "custom"; dismissible?: boolean; params: CustomParams };
+  | { type: "checkout"; dismissible?: boolean; title: string; params: CheckoutParams }
+  | { type: "preferences"; dismissible?: boolean; title: string; params: PreferencesParams }
+  | { type: "custom"; dismissible?: boolean; title: string; params: CustomParams };
 
 type ModalContextType = {
   openModal: (modal: ModalParams) => void;
@@ -61,7 +59,7 @@ export function ModalManager({ children }: { children: ReactNode }) {
           >
             <div className="modal-window" onClick={(e) => e.stopPropagation()}>
               <div className="modalTopRow">
-                <div> text here </div>
+                <h3> {modal.title} </h3>
                 <div>
                   {modal.dismissible && (
                     <CircularIconButton
@@ -69,6 +67,7 @@ export function ModalManager({ children }: { children: ReactNode }) {
                       onChange={closeModal}
                       hoverPosition="top"
                       icon={<X size={18} strokeWidth={1.5} />}
+                      padding={5}
                     />
                   )}
                 </div>
@@ -92,8 +91,6 @@ function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
       return <CheckoutModal {...modal.params} />;
     case "preferences":
       return <PreferencesModal {...modal.params} />;
-    case "troll":
-      return <TrollModal />;
     case "custom":
       return <CustomModal {...modal.params} />;
     default:
@@ -101,20 +98,8 @@ function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
   }
 }
 
-// TODO each of these should go to their own file as the same modal component...
-function CheckoutModal(props: CheckoutParams) {
-  return (
-    <div>
-      Checkout Modal! Order: {props.orderId} — Total:{" "}
-      {cartService.getTotalCost()}
-    </div>
-  );
-}
 function PreferencesModal(props: PreferencesParams) {
   return <div>Preferences Modal for User: {props.userId}</div>;
-}
-function TrollModal() {
-  return <div>🧌 Get trolled!</div>;
 }
 function CustomModal({ content }: CustomParams) {
   return <>{content}</>;
