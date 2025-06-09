@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cartService } from "../services/CartService";
-import "./CartCheckout.scss";
 import { extraFeesService } from "../services/ExtraFeesService";
 import { Fee } from "../services/tools/Classes";
 import { Tooltip } from "react-tooltip";
 import { useModal } from "../modals/ModalManager";
 import TextButton from "../inputs/TextButton";
+import CheckBox from "../inputs/CheckBox";
+import "./CartCheckout.scss";
+
+const moonRiftFee: Fee = {
+  category: "Delivery",
+  nameOfFee: "Moon-Rift Delivery",
+  price: 10,
+  description: "Get your items delivered through a moon-rift!",
+};
 
 export default function CartCheckout() {
   const [cartPrice, setCartPrice] = useState<number>(
@@ -17,10 +25,12 @@ export default function CartCheckout() {
   const [finalCartPrice, setFinalCartPrice] = useState<number>(
     extraFeesService.getFinalPrice()
   );
-
   const { openModal } = useModal();
-
-  // TODO add a small segment where the user can select a faster shipping option
+  const expressDelivery = useRef<boolean>(
+    extraFeesService
+      .getFeesList()
+      .some((fee) => fee.nameOfFee === moonRiftFee.nameOfFee)
+  );
 
   useEffect(() => {
     const unsubscribe = extraFeesService.subscribe("CartCheckout", () => {
@@ -63,7 +73,19 @@ export default function CartCheckout() {
           </div>
         ))}
       </div>
-
+      <div className="row">
+        <CheckBox
+          text={"Moon-Rift Delivery?"}
+          checked={expressDelivery.current}
+          onChange={(val) => {
+            if (val) extraFeesService.addCustomFee(moonRiftFee);
+            else extraFeesService.removeCustomFee(moonRiftFee.nameOfFee);
+            expressDelivery.current = val;
+          }}
+          hoverText={moonRiftFee.description}
+          hoverPosition={"top"}
+        />
+      </div>
       <div className="row">
         <div>Total taxes and fees:</div>
         <div>{(finalCartPrice - cartPrice).toFixed(2)}$</div>

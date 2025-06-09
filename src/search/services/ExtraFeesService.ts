@@ -132,6 +132,20 @@ class ExtraFeesService extends Service {
   private fixFinalPrice() {
     this.finalPrice = Math.round((this.finalPrice + Number.EPSILON) * 100) / 100;
   }
+
+  addCustomFee(fee: Fee) {
+    if (!this.feesList.some((f) => f.nameOfFee === fee.nameOfFee)) {
+      this.feesList.push(fee);
+      this.calulateFinalPrice();
+      this.notifySubscribers();
+    }
+  }
+
+  removeCustomFee(feeName: string) {
+    this.feesList = this.feesList.filter((fee) => fee.nameOfFee !== feeName);
+    this.calulateFinalPrice();
+    this.notifySubscribers();
+  }
 }
 
 export const extraFeesService = ExtraFeesService.getInstance();
