@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 import CircularIconButton from "../inputs/CircularIconButton";
 import CheckoutModal, { CheckoutParams } from "./FinalCheckoutModal";
-import ReciptModal from "./ReciptModal";
+import ReceiptModal from "./ReceiptModal";
 import { AnimatePresence } from "framer-motion";
 
 type ModalParams =
@@ -98,7 +98,7 @@ function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
     case "checkout":
       return <CheckoutModal {...modal.params} />;
     case "recipt":
-      return <ReciptModal />;
+      return <ReceiptModal />;
     default:
       return null;
   }
