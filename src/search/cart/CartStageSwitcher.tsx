@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import CartContent from "./CartContent";
 import FinalCheckout from "./CartCheckout";
 import CircularIconButton from "../inputs/CircularIconButton";
-import { ArrowLeft, ArrowRight, CircleArrowOutDownRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, CircleArrowOutDownRight, Trash2 } from "lucide-react";
 import "./CartStageSwitcher.scss";
 import { cartService } from "../services/CartService";
 
@@ -19,9 +19,10 @@ export default function CartStageSwitcher({
 
   useEffect(() => {
     const unsubscribe = cartService.subscribe("CartStageSwitcher", () => {
-      if (cartService.getTotalCost() === 0 && stage === "cart")
+      if (cartService.getTotalCost() === 0) {
         setDisableProceedBtn(true);
-      else setDisableProceedBtn(false);
+        setStage("cart");
+      } else setDisableProceedBtn(false);
     });
     return () => {
       unsubscribe();
@@ -65,6 +66,28 @@ export default function CartStageSwitcher({
             hoverText="Minimize"
             hoverPosition="right"
           ></CircularIconButton>
+
+          <AnimatePresence>
+            {stage === "cart" && (
+              <motion.div
+                key="content"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <CircularIconButton
+                  onChange={() => {
+                    cartService.clear();
+                  }}
+                  icon={<Trash2 size={18} strokeWidth={1.5} />}
+                  hoverText="Cleanse Cart"
+                  hoverPosition="top"
+                ></CircularIconButton>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <CircularIconButton
             onChange={() => {
               setStage(stage === "cart" ? "checkout" : "cart");

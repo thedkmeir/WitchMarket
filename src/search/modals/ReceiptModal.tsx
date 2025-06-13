@@ -8,21 +8,30 @@ import { dataService } from "../services/DataService";
 
 export default function ReceiptModal() {
   const { closeModal } = useModal();
-  // TODO add a download receipt button that downloads a receipt as a PDF
+
   return (
     <div className="receiptModal">
-      {[...cartService.getCart().entries()].map(([productName, amount]) => (
-        <div className="row" key={productName}>
-          <div>{amount}X{productName}:</div>
-          <div className="price">{((dataService.getProductByName(productName)?.price ?? 0) * amount)}$</div>
-        </div>
-      ))}
-      {extraFeesService.getFeesList().map((fee) => (
-        <div className="row" key={fee.nameOfFee}>
-          <div>{fee.nameOfFee}:</div>
-          <div className="price">{fee.price}$</div>
-        </div>
-      ))}
+      <div className="scrollable">
+        {[...cartService.getCart().entries()].map(([productName, amount]) => (
+          <div className="row" key={productName}>
+            <div>
+              {amount}X{productName}:
+            </div>
+            <div className="price">
+              {(
+                (dataService.getProductByName(productName)?.price ?? 0) * amount
+              ).toFixed(2)}
+              $
+            </div>
+          </div>
+        ))}
+        {extraFeesService.getFeesList().map((fee) => (
+          <div className="row" key={fee.nameOfFee}>
+            <div>{fee.nameOfFee}:</div>
+            <div className="price">{fee.price}$</div>
+          </div>
+        ))}
+      </div>
       <hr></hr>
       <div className="row">
         <div>Total:</div>
@@ -32,6 +41,8 @@ export default function ReceiptModal() {
       <TextButton
         text={"Close"}
         onClick={() => {
+          cartService.clear();
+          extraFeesService.clear();
           closeModal();
         }}
       />

@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import "./board.scss";
 import Square from "./square";
+import { useModal } from "../search/modals/ModalManager";
 
 export default function Board() {
-  const [squares, setSquares] = useState<(string | null)[]>(Array(9).fill(null));
+  const [squares, setSquares] = useState<(string | null)[]>(
+    Array(9).fill(null)
+  );
   const [xIsNext, setXIsNext] = useState(true); // Human always goes first ("×")
   const [isGameOver, setIsGameOver] = useState(false);
+  const { openModal } = useModal();
 
   const Winnerlines = [
     [0, 1, 2],
@@ -41,8 +45,6 @@ export default function Board() {
     // Check for human win/draw immediately after move
     if (calculateWinner(squaresCopy) || isDraw(squaresCopy)) {
       setIsGameOver(true);
-
-      // TODO if somehow the human wins, add the 15% off...
       return;
     }
 
@@ -90,7 +92,11 @@ export default function Board() {
     return move;
   }
 
-  function minimax(board: (string | null)[], depth: number, isMaximizing: boolean): number {
+  function minimax(
+    board: (string | null)[],
+    depth: number,
+    isMaximizing: boolean
+  ): number {
     const winner = calculateWinner(board);
     if (winner === "●") return 1;
     if (winner === "×") return -1;

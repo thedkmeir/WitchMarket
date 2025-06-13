@@ -207,25 +207,42 @@ class DataService extends Service {
     sortService.subscribe("DataService", this.sortProducts.bind(this));
   }
 
-  async updateFilteredCatalog() {
-    this.storeCatalogFilteredCount = 0;
-    const searchTerm = searchService.getSearchTerm().toLowerCase();
-    const showOnlyInStock = inStockService.getInStock();
-    const range = rangeService.getRangeNumbers() as [number, number];
-    this.storeCatalog = new Map();
-    products.forEach((product) => {
-      const category = product.category;
-      if (!product.name.toLowerCase().includes(searchTerm)) return;
-      if (showOnlyInStock && !product.stocked) return;
-      if (product.price < range[0] || product.price > range[1]) return;
-      if (!this.storeCatalog.has(category)) this.storeCatalog.set(category, []);
-      if (!this.blackListedCategories.includes(category))
-        this.storeCatalogFilteredCount++;
-      this.storeCatalog.get(category)?.push(product);
-    });
+async updateFilteredCatalog() {
+  // Get current filter criteria
+  const searchTerm = searchService.getSearchTerm().toLowerCase();
+  const showOnlyInStock = inStockService.getInStock();
+  const range = rangeService.getRangeNumbers() as [number, number];
+  
+  // Clear and rebuild the catalog
+  this.storeCatalog.clear();
+  this.storeCatalogFilteredCount = 0;
 
-    this.sortProducts();
-  }
+  // Filter and categorize products
+  products.forEach((product) => {
+    // Apply all filters
+    if (!product.name.toLowerCase().includes(searchTerm)) return;
+    if (showOnlyInStock && !product.stocked) return;
+    if (product.price < range[0] || product.price > range[1]) return;
+    
+    const category = product.category;
+    
+    // Initialize category array if it doesn't exist
+    if (!this.storeCatalog.has(category)) {
+      this.storeCatalog.set(category, []);
+    }
+    
+    // Add product to category
+    this.storeCatalog.get(category)!.push(product);
+    
+    // Only count products from non-blacklisted categories
+    if (!this.blackListedCategories.includes(category)) {
+      this.storeCatalogFilteredCount++;
+    }
+  });
+
+  // Sort the filtered products
+  this.sortProducts();
+}
 
   sortProducts() {
     const sortType: SortType = sortService.getSortIndex();

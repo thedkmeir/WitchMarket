@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 import CircularIconButton from "../inputs/CircularIconButton";
 import CheckoutModal, { CheckoutParams } from "./FinalCheckoutModal";
+import MessageModal, { MessageParams } from "./MessageModal";
 import ReceiptModal from "./ReceiptModal";
-import { AnimatePresence } from "framer-motion";
 
 type ModalParams =
   | {
@@ -17,6 +17,12 @@ type ModalParams =
       type: "recipt";
       dismissible?: boolean;
       title: string;
+    }
+  | {
+      type: "message";
+      dismissible?: boolean;
+      title: string;
+      params: MessageParams;
     };
 
 type ModalContextType = {
@@ -53,41 +59,38 @@ export function ModalManager({ children }: { children: ReactNode }) {
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
-        {modalStack.map((modal, i) =>
-          ReactDOM.createPortal(
-            <div
-              className="modalManager"
-              key={i}
-              onClick={() => {
-                if (modal.dismissible) closeModal();
-              }}
-            >
-              <div
-                className="modal-window"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="modalTopRow">
-                  <h3> {modal.title} </h3>
-                  <div>
-                    {modal.dismissible && (
-                      <CircularIconButton
-                        hoverText="Close"
-                        onChange={closeModal}
-                        hoverPosition="top"
-                        icon={<X size={18} strokeWidth={1.5} />}
-                        padding={5}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="modalContent">
-                  <ModalContentSwitcher modal={modal} />
+      {modalStack.map((modal, i) =>
+        ReactDOM.createPortal(
+          <div
+            className="modalManager"
+            key={i}
+            onClick={() => {
+              if (modal.dismissible) closeModal();
+            }}
+          >
+            <div className="modal-window" onClick={(e) => e.stopPropagation()}>
+              <div className="modalTopRow">
+                <h3> {modal.title} </h3>
+                <div>
+                  {modal.dismissible && (
+                    <CircularIconButton
+                      hoverText="Close"
+                      onChange={closeModal}
+                      hoverPosition="top"
+                      icon={<X size={18} strokeWidth={1.5} />}
+                      padding={5}
+                    />
+                  )}
                 </div>
               </div>
-            </div>,
-            document.body
-          )
-        )}
+              <div className="modalContent">
+                <ModalContentSwitcher modal={modal} />
+              </div>
+            </div>
+          </div>,
+          document.body
+        )
+      )}
     </ModalContext.Provider>
   );
 }
@@ -97,6 +100,8 @@ function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
   switch (modal.type) {
     case "checkout":
       return <CheckoutModal {...modal.params} />;
+    case "message":
+      return <MessageModal {...modal.params} />;
     case "recipt":
       return <ReceiptModal />;
     default:

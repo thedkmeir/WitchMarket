@@ -7,6 +7,7 @@ import Spacer from "../inputs/Spacer";
 import Board from "../../tictactoe/board";
 import TextButton from "../inputs/TextButton";
 import { useModal } from "./ModalManager";
+import { cartService } from "../services/CartService";
 
 export type CheckoutParams = { orderId: string };
 
@@ -21,12 +22,6 @@ export default function CheckoutModal(props: CheckoutParams) {
   const deliveryDate: Date = new Date();
   if (expressDelivery.current) deliveryDate.setDate(deliveryDate.getDate() + 5);
   else deliveryDate.setDate(deliveryDate.getDate() + 21);
-
-  // TODO make a start button that will animately start the game of tic-tac-toe
-
-  // TODO make the cast order button clear out the entire cart...
-
-  // TODO make a new button called Full Recipt that will toggle a new kind of modal that will show all items and all fees and the total price.
 
   return (
     <div className="checkoutModal">

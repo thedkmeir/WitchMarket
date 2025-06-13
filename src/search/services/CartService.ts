@@ -17,6 +17,7 @@ class CartService extends Service {
 
   clear() {
     this.itemList.clear();
+    this.totalCost = 0;
     this.notifySubscribers();
   }
 
