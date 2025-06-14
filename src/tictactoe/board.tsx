@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import "./board.scss";
 import Square from "./square";
 import { useModal } from "../search/modals/ModalManager";
+import TextButton from "../search/inputs/TextButton";
+import { AnimatePresence, motion } from "framer-motion";
+import Spacer from "../search/inputs/Spacer";
 
 export default function Board() {
   const [squares, setSquares] = useState<(string | null)[]>(
@@ -31,6 +34,12 @@ export default function Board() {
     return null;
   }
 
+  function resetGame() {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+    setIsGameOver(false);
+  }
+
   function isDraw(sq: Array<string | null>) {
     return sq.every((v) => v !== null);
   }
@@ -43,18 +52,29 @@ export default function Board() {
     setSquares(squaresCopy);
 
     // Check for human win/draw immediately after move
-    if (calculateWinner(squaresCopy) || isDraw(squaresCopy)) {
+    const winner = calculateWinner(squaresCopy);
+    if (winner || isDraw(squaresCopy)) {
       setIsGameOver(true);
+      if (winner === "×") {
+        setTimeout(() => {
+          openModal({
+            type: "message",
+            title: "Well About that 15% off...",
+            dismissible: true,
+            params: {
+              msg: "You won! (Probably by cheating)... but i need to tell you something... i kinda lied about that 15% off... sorry!",
+            },
+          });
+        }, 1500);
+      }
       return;
     }
 
     setXIsNext(false);
   }
 
-  // BOT LOGIC: Runs automatically after human move
   useEffect(() => {
     if (!isGameOver && !xIsNext) {
-      // Bot makes its move after a short delay
       setTimeout(() => {
         const move = bestMove(squares);
         if (move !== null) {
@@ -62,19 +82,16 @@ export default function Board() {
           newSquares[move] = "●";
           setSquares(newSquares);
 
-          // Check if bot wins or game is draw
           if (calculateWinner(newSquares) || isDraw(newSquares)) {
             setIsGameOver(true);
           } else {
             setXIsNext(true);
           }
         }
-      }, 400); // Add a little delay for realism
+      }, 500);
     }
-    // eslint-disable-next-line
   }, [xIsNext, isGameOver, squares]);
 
-  // Minimax: Bot always plays optimally
   function bestMove(board: (string | null)[]): number | null {
     let bestScore = -Infinity;
     let move: number | null = null;
@@ -144,15 +161,29 @@ export default function Board() {
           </div>
         ))}
       </div>
-      {isGameOver && (
-        <div style={{ marginTop: 16 }}>
-          {calculateWinner(squares)
-            ? calculateWinner(squares) === "×"
-              ? "YOU WIN?!?! IT IS IMPOSSIBLE!"
-              : "You lost... no 15% off for you!"
-            : "Draw! no one wins..."}
-        </div>
-      )}
+      <Spacer size={5} />
+
+      <motion.div layout style={{ height: 32, overflow: "hidden" }}>
+        <AnimatePresence mode="wait">
+          {isGameOver && (
+            <motion.div
+              key="result"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              layout
+            >
+              {calculateWinner(squares)
+                ? calculateWinner(squares) === "×"
+                  ? "YOU WON?!?! HOW?!?! IT IS IMPOSSIBLE!!!"
+                  : "You lost... no 15% off for you!"
+                : "Draw! no one wins..."}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+      <Spacer size={10} />
+      <TextButton text={"Try Again?"} onClick={resetGame} />
     </>
   );
 }

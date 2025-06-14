@@ -3,9 +3,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import CartContent from "./CartContent";
 import FinalCheckout from "./CartCheckout";
 import CircularIconButton from "../inputs/CircularIconButton";
-import { ArrowLeft, ArrowRight, CircleArrowOutDownRight, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CircleArrowOutDownRight,
+  Trash2,
+} from "lucide-react";
 import "./CartStageSwitcher.scss";
 import { cartService } from "../services/CartService";
+import { useModal } from "../modals/ModalManager";
 
 export default function CartStageSwitcher({
   onClose,
@@ -16,6 +22,7 @@ export default function CartStageSwitcher({
   const [disableProceedBtn, setDisableProceedBtn] = useState<boolean>(
     cartService.getTotalCost() === 0 && stage === "cart"
   );
+  const { openModal } = useModal();
 
   useEffect(() => {
     const unsubscribe = cartService.subscribe("CartStageSwitcher", () => {
@@ -78,7 +85,16 @@ export default function CartStageSwitcher({
               >
                 <CircularIconButton
                   onChange={() => {
-                    cartService.clear();
+                    openModal({
+                      type: "yesNo",
+                      title: "Cleanse Cart?",
+                      params: {
+                        question: "Are you sure you want to cleanse the cart?",
+                        onAnswer: (answer: boolean) => {
+                          if (answer) cartService.clear();
+                        },
+                      },
+                    });
                   }}
                   icon={<Trash2 size={18} strokeWidth={1.5} />}
                   hoverText="Cleanse Cart"

@@ -5,6 +5,7 @@ import CircularIconButton from "../inputs/CircularIconButton";
 import CheckoutModal, { CheckoutParams } from "./FinalCheckoutModal";
 import MessageModal, { MessageParams } from "./MessageModal";
 import ReceiptModal from "./ReceiptModal";
+import YesNoModal, { YesNoParams } from "./YesNoModal";
 
 type ModalParams =
   | {
@@ -23,6 +24,12 @@ type ModalParams =
       dismissible?: boolean;
       title: string;
       params: MessageParams;
+    }
+  | {
+      type: "yesNo";
+      dismissible?: boolean;
+      title: string;
+      params: YesNoParams;
     };
 
 type ModalContextType = {
@@ -104,6 +111,8 @@ function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
       return <MessageModal {...modal.params} />;
     case "recipt":
       return <ReceiptModal />;
+    case "yesNo":
+      return <YesNoModal {...modal.params} />;
     default:
       return null;
   }

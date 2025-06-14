@@ -5,9 +5,20 @@ import { useModal } from "./ModalManager";
 import { extraFeesService } from "../services/ExtraFeesService";
 import Spacer from "../inputs/Spacer";
 import { dataService } from "../services/DataService";
+import { dateToWitchString } from "../services/tools/WitchCalender";
+import { useRef } from "react";
+import { moonRiftFee } from "../cart/CartCheckout";
 
 export default function ReceiptModal() {
   const { closeModal } = useModal();
+  const expressDelivery = useRef<boolean>(
+    extraFeesService
+      .getFeesList()
+      .some((fee) => fee.nameOfFee === moonRiftFee.nameOfFee)
+  );
+  const deliveryDate: Date = new Date();
+  if (expressDelivery.current) deliveryDate.setDate(deliveryDate.getDate() + 5);
+  else deliveryDate.setDate(deliveryDate.getDate() + 21);
 
   return (
     <div className="receiptModal">
@@ -37,6 +48,8 @@ export default function ReceiptModal() {
         <div>Total:</div>
         <div className="price">{extraFeesService.getFinalPrice()}$</div>
       </div>
+      <Spacer size={15} />
+      <div className="row">{dateToWitchString(deliveryDate)}</div>
       <Spacer size={15} />
       <TextButton
         text={"Close"}

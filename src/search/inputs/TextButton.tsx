@@ -4,10 +4,12 @@ import "./TextButton.scss";
 export default function TextButton({
   text,
   icon,
+  fontSize,
   onClick,
 }: {
   text: string | null;
   icon?: ReactNode;
+  fontSize?: number;
   onClick?: () => void;
 }) {
   return (
@@ -15,7 +17,7 @@ export default function TextButton({
       <div className="customButtonWrapper">
         <button type="button" onClick={onClick} className={`customButton`}>
           {icon}
-          <div className="inner">{text}</div>
+          <div className="inner" style={{ fontSize: fontSize }}>{text}</div>
         </button>
       </div>
     </div>
