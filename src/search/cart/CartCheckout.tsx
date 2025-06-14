@@ -111,7 +111,7 @@ export default function CartCheckout() {
         <TextButton
           text={"Cast Order"}
           onClick={() =>
-            openModal({ type: "checkout", params: { orderId: "" }, title: "Cast Order" })
+            openModal({ type: "checkout", title: "Cast Order" })
           }
         ></TextButton>
       </div>

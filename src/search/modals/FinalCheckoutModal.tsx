@@ -5,9 +5,7 @@ import Board from "../../tictactoe/board";
 import TextButton from "../inputs/TextButton";
 import { useModal } from "./ModalManager";
 
-export type CheckoutParams = { orderId: string };
-
-export default function CheckoutModal(props: CheckoutParams) {
+export default function CheckoutModal() {
   const { openModal, closeModal } = useModal();
 
   return (

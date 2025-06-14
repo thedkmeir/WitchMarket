@@ -1,5 +1,4 @@
 import "./MessageModal.scss";
-import { useModal } from "./ModalManager";
 
 export type MessageParams = { msg: string };
 

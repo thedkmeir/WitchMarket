@@ -1,18 +1,17 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 import CircularIconButton from "../inputs/CircularIconButton";
-import CheckoutModal, { CheckoutParams } from "./FinalCheckoutModal";
 import MessageModal, { MessageParams } from "./MessageModal";
 import ReceiptModal from "./ReceiptModal";
 import YesNoModal, { YesNoParams } from "./YesNoModal";
+import CheckoutModal from "./FinalCheckoutModal";
 
 type ModalParams =
   | {
       type: "checkout";
       dismissible?: boolean;
       title: string;
-      params: CheckoutParams;
     }
   | {
       type: "recipt";
@@ -106,7 +105,7 @@ export function ModalManager({ children }: { children: ReactNode }) {
 function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
   switch (modal.type) {
     case "checkout":
-      return <CheckoutModal {...modal.params} />;
+      return <CheckoutModal />;
     case "message":
       return <MessageModal {...modal.params} />;
     case "recipt":
