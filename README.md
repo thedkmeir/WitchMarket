@@ -13,6 +13,7 @@ Built in React. Filter and shop to your witchy heart’s content. Score discount
 ⸻
 
 🪄 Features
+
 	•	🧹 Filter products by category, price, in-stock status, or with an ancient search spell (actually just a search bar).
 	•	🛒 Add & remove items from a floating cart.
 	•	🧾 Checkout with a slick animated modal and download a printable receipt (for your accountant familiar).
@@ -24,6 +25,7 @@ Built in React. Filter and shop to your witchy heart’s content. Score discount
 ⸻
 
 🧪 Tech Stack
+
 	•	React (with TypeScript + SCSS)
 	•	Framer Motion — for magical UI animations
 	•	lucide-react — icons
