@@ -4,11 +4,9 @@ import "./CartContainer.scss";
 
 export default function CartContainer({
   isOpen,
-  onClick,
   children,
 }: {
   isOpen: boolean;
-  onClick: () => void;
   children: ReactNode;
 }) {
   return (
@@ -17,7 +15,6 @@ export default function CartContainer({
         className={
           isOpen ? "floatingCartContainer" : "floatingCartContainerPointer"
         }
-        onClick={onClick}
         initial={false}
         animate={isOpen ? "open" : "closed"}
         variants={{

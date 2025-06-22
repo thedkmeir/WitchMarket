@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CartContent from "./CartContent";
 import FinalCheckout from "./CartCheckout";
@@ -12,6 +12,7 @@ import {
 import "./CartStageSwitcher.scss";
 import { cartService } from "../services/CartService";
 import { useModal } from "../modals/ModalManager";
+import { useFlyToCart } from "../FlyToCartContext";
 
 export default function CartStageSwitcher({
   onClose,
@@ -23,6 +24,21 @@ export default function CartStageSwitcher({
     cartService.getTotalCost() === 0 && stage === "cart"
   );
   const { openModal } = useModal();
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const { registerCartTarget } = useFlyToCart();
+
+  useEffect(() => {
+    let timer: number | null = null;
+    if (panelRef.current) {
+      timer = window.setTimeout(() => {
+        registerCartTarget("panel", panelRef.current);
+      }, 350);
+    }
+    return () => {
+      if (timer) window.clearTimeout(timer);
+      registerCartTarget("panel", null);
+    };
+  }, [registerCartTarget]);
 
   useEffect(() => {
     const unsubscribe = cartService.subscribe("CartStageSwitcher", () => {
@@ -38,7 +54,7 @@ export default function CartStageSwitcher({
 
   return (
     <>
-      <div className="cartStageSwitcher">
+      <div className="cartStageSwitcher" ref={panelRef}>
         <AnimatePresence mode="popLayout" initial={false}>
           {stage === "cart" ? (
             <motion.div
