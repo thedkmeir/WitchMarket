@@ -3,23 +3,38 @@ import { motion } from "framer-motion";
 import { FlyPayload } from "./FlyToCartContext";
 
 export default function FlyToCartOverlay({
+  flyPayloads,
+  clearFly,
+}: {
+  flyPayloads: FlyPayload[];
+  clearFly: (id: string) => void;
+}) {
+  if (!flyPayloads.length) return null;
+
+  return (
+    <>
+      {flyPayloads.map((fly) => (
+        <SingleFlyOverlay key={fly.id} fly={fly} clearFly={clearFly} />
+      ))}
+    </>
+  );
+}
+
+function SingleFlyOverlay({
   fly,
   clearFly,
 }: {
-  fly: FlyPayload | null;
-  clearFly: () => void;
+  fly: FlyPayload;
+  clearFly: (id: string) => void;
 }) {
   useEffect(() => {
     if (!fly) return;
-    // Clean up after animation duration
     const timer = setTimeout(() => {
-      clearFly();
+      if (fly.id) clearFly(fly.id);
       fly.onComplete?.();
-    }, 1000); // duration must match transition below
+    }, 900);
     return () => clearTimeout(timer);
   }, [fly, clearFly]);
-
-  if (!fly) return null;
 
   const { image, from, to, toComp } = fly;
 
@@ -30,7 +45,7 @@ export default function FlyToCartOverlay({
     top = to.top;
     left = to.left - from.width / 2;
   } else if (toComp === "panel") {
-    top = to.top + (to.height * 0.85);
+    top = to.top + to.height * 0.85;
     left = to.left - from.width / 2 + to.width / 2;
   }
 

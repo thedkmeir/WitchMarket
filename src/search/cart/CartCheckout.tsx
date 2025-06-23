@@ -16,7 +16,11 @@ export const moonRiftFee: Fee = {
   description: "Get your items delivered through a moon-rift!",
 };
 
-export default function CartCheckout() {
+export default function CartCheckout({
+  onCartChange,
+}: {
+  onCartChange: () => void;
+}) {
   const [cartPrice, setCartPrice] = useState<number>(
     cartService.getTotalCost()
   );
@@ -38,6 +42,15 @@ export default function CartCheckout() {
       setCartPrice(cartService.getTotalCost());
       setCartFees(extraFeesService.getFeesList());
       setFinalCartPrice(extraFeesService.getFinalPrice());
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = cartService.subscribe("CartCheckout", () => {
+      onCartChange();
     });
     return () => {
       unsubscribe();
@@ -110,9 +123,7 @@ export default function CartCheckout() {
       <div className="middleMe">
         <TextButton
           text={"Cast Order"}
-          onClick={() =>
-            openModal({ type: "checkout", title: "Cast Order" })
-          }
+          onClick={() => openModal({ type: "checkout", title: "Cast Order" })}
         ></TextButton>
       </div>
     </div>

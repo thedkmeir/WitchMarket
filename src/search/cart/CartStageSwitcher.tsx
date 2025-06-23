@@ -29,14 +29,27 @@ export default function CartStageSwitcher({
 
   useEffect(() => {
     let timer: number | null = null;
+
+    // Initial delayed registration
     if (panelRef.current) {
       timer = window.setTimeout(() => {
         registerCartTarget("panel", panelRef.current);
       }, 350);
     }
+
+    // Immediate update on resize
+    function handleResize() {
+      if (panelRef.current) {
+        registerCartTarget("panel", panelRef.current);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
     return () => {
       if (timer) window.clearTimeout(timer);
-      registerCartTarget("panel", null);
+      window.removeEventListener("resize", handleResize);
+      registerCartTarget("icon", null);
     };
   }, [registerCartTarget]);
 
@@ -76,7 +89,7 @@ export default function CartStageSwitcher({
               exit={{ x: 350 }}
               transition={{ duration: 0.3 }}
             >
-              <FinalCheckout />
+              <FinalCheckout onCartChange={() => setStage("cart")}/>
             </motion.div>
           )}
         </AnimatePresence>
