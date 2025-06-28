@@ -6,18 +6,26 @@ $color3: #a55b4b;
 $color4: #dca06d;
 
 :root {
+  --color-1-darker: #{color.scale($color1, $lightness: -40%)};
+  --color-1-dark: #{color.scale($color1, $lightness: -20%)};
   --color-1: #{$color1};
   --color-1-bright: #{color.scale($color1, $lightness: 20%)};
   --color-1-brighter: #{color.scale($color1, $lightness: 40%)};
 
+  --color-2-darker: #{color.scale($color2, $lightness: -40%)};
+  --color-2-dark: #{color.scale($color2, $lightness: -20%)};
   --color-2: #{$color2};
   --color-2-bright: #{color.scale($color2, $lightness: 20%)};
   --color-2-brighter: #{color.scale($color2, $lightness: 40%)};
 
+  --color-3-darker: #{color.scale($color3, $lightness: -40%)};
+  --color-3-dark: #{color.scale($color3, $lightness: -20%)};
   --color-3: #{$color3};
   --color-3-bright: #{color.scale($color3, $lightness: 20%)};
   --color-3-brighter: #{color.scale($color3, $lightness: 40%)};
 
+  --color-4-darker: #{color.scale($color4, $lightness: -40%)};
+  --color-4-dark: #{color.scale($color4, $lightness: -20%)};
   --color-4: #{$color4};
   --color-4-bright: #{color.scale($color4, $lightness: 20%)};
   --color-4-brighter: #{color.scale($color4, $lightness: 40%)};
@@ -34,7 +42,7 @@ $color4: #dca06d;
   color-scheme: light dark;
   color: black;
   background-color: var(--color-1);
-  background-image: url("/WitchMarket/assets/pattern.png");
+  background-image: url("../assets/pattern.png");
   background-attachment: fixed;
 
   font-synthesis: none;
@@ -86,7 +94,10 @@ body {
 }
 
 // fix input text not taking my font family
-.input {
+input,
+select,
+textarea,
+button {
   font-family: "Dancing Script", cursive;
   font-optical-sizing: auto;
   font-weight: 700;

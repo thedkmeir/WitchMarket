@@ -24,6 +24,7 @@ export default function infoContent({ onClose }: { onClose: () => void }) {
         <CircularIconButton
           onChange={onClose}
           icon={<CircleArrowOutUpRight size={18} strokeWidth={1.5} />}
+          padding={5}
         ></CircularIconButton>
       </div>
     </div>

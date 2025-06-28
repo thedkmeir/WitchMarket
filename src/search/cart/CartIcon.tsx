@@ -4,8 +4,8 @@ import { useFlyToCart } from "../FlyToCartContext";
 import "./CartIcon.scss";
 import { cartService } from "../services/CartService";
 
-const CAULDRON_SVG = "/WitchMarket/assets/cauldron.png";
-const CAULDRON_GIF = "/WitchMarket/assets/cauldron.gif";
+const CAULDRON_SVG = `${import.meta.env.BASE_URL}assets/cauldron.png`;
+const CAULDRON_GIF = `${import.meta.env.BASE_URL}assets/cauldron.gif`;
 const GIF_DURATION = 2000;
 
 export default function CartIcon({ onClose }: { onClose: () => void }) {
