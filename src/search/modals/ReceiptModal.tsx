@@ -21,44 +21,47 @@ export default function ReceiptModal() {
   else deliveryDate.setDate(deliveryDate.getDate() + 21);
 
   return (
-    <div className="receiptModal">
-      <div className="scrollable">
-        {[...cartService.getCart().entries()].map(([productName, amount]) => (
-          <div className="row" key={productName}>
-            <div>
-              {amount}X{productName}:
+    <>
+      <div className="receiptModal">
+        <div className="scrollable">
+          {[...cartService.getCart().entries()].map(([productName, amount]) => (
+            <div className="row" key={productName}>
+              <div>
+                {amount}X{productName}:
+              </div>
+              <div className="price">
+                {(
+                  (dataService.getProductByName(productName)?.price ?? 0) *
+                  amount
+                ).toFixed(2)}
+                $
+              </div>
             </div>
-            <div className="price">
-              {(
-                (dataService.getProductByName(productName)?.price ?? 0) * amount
-              ).toFixed(2)}
-              $
+          ))}
+          {extraFeesService.getFeesList().map((fee) => (
+            <div className="row" key={fee.nameOfFee}>
+              <div>{fee.nameOfFee}:</div>
+              <div className="price">{fee.price}$</div>
             </div>
-          </div>
-        ))}
-        {extraFeesService.getFeesList().map((fee) => (
-          <div className="row" key={fee.nameOfFee}>
-            <div>{fee.nameOfFee}:</div>
-            <div className="price">{fee.price}$</div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <hr></hr>
+        <div className="row">
+          <div>Total:</div>
+          <div className="price">{extraFeesService.getFinalPrice()}$</div>
+        </div>
+        <Spacer size={15} />
+        <div className="row">{dateToWitchString(deliveryDate)}</div>
+        <Spacer size={15} />
+        <TextButton
+          text={"Close"}
+          onClick={() => {
+            cartService.clear();
+            extraFeesService.clear();
+            closeModal();
+          }}
+        />
       </div>
-      <hr></hr>
-      <div className="row">
-        <div>Total:</div>
-        <div className="price">{extraFeesService.getFinalPrice()}$</div>
-      </div>
-      <Spacer size={15} />
-      <div className="row">{dateToWitchString(deliveryDate)}</div>
-      <Spacer size={15} />
-      <TextButton
-        text={"Close"}
-        onClick={() => {
-          cartService.clear();
-          extraFeesService.clear();
-          closeModal();
-        }}
-      />
-    </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 {
   "name": "WitchMarket",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "lastUpdate": "29/06/25",
   "type": "module",
   "homepage": "https://thedkmeir.github.io/WitchMarket",
@@ -14,6 +14,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "fireworks-js": "^2.10.8",
     "framer-motion": "^12.8.0",
     "gh-pages": "^6.3.0",
     "html2canvas": "^1.4.1",

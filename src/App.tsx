@@ -11,9 +11,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import LoginPage from "./search/login/login.tsx";
+import LoginPage from "./search/login/Login.tsx";
 import { AnimatePresence, motion } from "framer-motion";
-import TopTip from "./search/toptip/Toptip.tsx";
+import TopTip from "./search/toptip/TopTip.tsx";
 
 function RequireAuth({ children }: { children: JSX.Element }) {
   const userName = localStorage.getItem("userName");
@@ -28,7 +28,12 @@ export default function App() {
   return (
     <FlyToCartProvider>
       <ModalManager>
-        <Router>
+        <Router
+          future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+          }}
+        >
           <Routes>
             <Route
               path="/login"
@@ -39,7 +44,7 @@ export default function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 1.2 }}
+                    transition={{ duration: 1 }}
                   >
                     <LoginPage />
                   </motion.div>
@@ -55,7 +60,7 @@ export default function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.8 }}
                   >
                     <RequireAuth>
                       <StorePage />

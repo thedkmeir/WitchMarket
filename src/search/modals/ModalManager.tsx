@@ -6,6 +6,8 @@ import MessageModal, { MessageParams } from "./MessageModal";
 import ReceiptModal from "./ReceiptModal";
 import YesNoModal, { YesNoParams } from "./YesNoModal";
 import CheckoutModal from "./FinalCheckoutModal";
+import FireworksBackdrop from "./Fireworks";
+import Fireworks from "fireworks-js";
 
 type ModalParams =
   | {
@@ -64,6 +66,7 @@ export function ModalManager({ children }: { children: ReactNode }) {
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
+      <FireworksBackdrop enabled={modalStack.some((m) => m.type === "recipt")} />
       {children}
       {modalStack.map((modal, i) =>
         ReactDOM.createPortal(

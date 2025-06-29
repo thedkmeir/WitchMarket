@@ -7,11 +7,11 @@ export default function TopTip() {
 
   return (
     <div className="topTip">
-      Hello {userName}!
+      Blessed Be, {userName}!
       <CircularIconButton
         icon={<LogOut size={20} />}
         hoverPosition="bottom"
-        hoverText="Logout"
+        hoverText="Vanish"
         padding={5}
         onChange={() => {
           localStorage.removeItem("userName");

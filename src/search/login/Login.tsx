@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import GradientText from "../inputs/GradientText";
+import TextButton from "../inputs/TextButton";
 
 const PICKUP_POINTS = [
   "Cauldron Alley",
@@ -36,7 +37,7 @@ export default function Login() {
         className="text-mask-svg"
         // width="100%"
         // height="120px"
-        viewBox="0 0 800 150"
+        viewBox="0 0 800 205"
         style={{ position: "relative", top: 0, left: 0, zIndex: 2 }}
       >
         <defs>
@@ -47,25 +48,25 @@ export default function Login() {
               {/* padding: 30px left, 12px top */}
               <text
                 x="370"
-                y="50"
+                y="85"
                 textAnchor="middle"
                 fontFamily="'Dancing Script', cursive"
                 fontWeight="700"
                 fontSize="72"
                 fill="black"
               >
-                Hello And Welcome
+                Merry Meet & Welcome
               </text>
               <text
                 x="370"
-                y="115"
+                y="170"
                 textAnchor="middle"
                 fontFamily="'Dancing Script', cursive"
                 fontWeight="700"
                 fontSize="72"
                 fill="black"
               >
-                To My Secret Market
+                to My Secret Market
               </text>
             </g>
           </mask>
@@ -79,20 +80,18 @@ export default function Login() {
         />
       </svg>
       <div className="wrapper">
-        <div>Please enter your full name and pickup point to Enter.</div>
         <form className="login-form" onSubmit={handleSubmit} autoComplete="off">
           <div className="form-group">
             <input
               type="text"
               id="userName"
-              placeholder="Enter your full name"
+              placeholder="Inscribe your Full Name"
               value={userName}
               required
               onChange={(e) => setUserName(e.target.value)}
               autoFocus
               maxLength={15}
             />
-            <label htmlFor="userName">Full Name:</label>
           </div>
           <div className="form-group">
             <select
@@ -110,7 +109,6 @@ export default function Login() {
                 </option>
               ))}
             </select>
-            <label htmlFor="pickupPoint">Pickup Point:</label>
           </div>
           {error && <div className="error">{error}</div>}
           <button type="submit" className="enter-btn">

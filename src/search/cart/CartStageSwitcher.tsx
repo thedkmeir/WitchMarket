@@ -116,9 +116,9 @@ export default function CartStageSwitcher({
                   onChange={() => {
                     openModal({
                       type: "yesNo",
-                      title: "Cleanse Cart?",
+                      title: "Cleanse Cauldron?",
                       params: {
-                        question: "Are you sure you want to cleanse the cart?",
+                        question: "Are you sure you want to cleanse your Cauldron?",
                         onAnswer: (answer: boolean) => {
                           if (answer) cartService.clear();
                         },
@@ -126,7 +126,7 @@ export default function CartStageSwitcher({
                     });
                   }}
                   icon={<Trash2 size={18} strokeWidth={1.5} />}
-                  hoverText="Cleanse Cart"
+                  hoverText="Cleanse Cauldron"
                   hoverPosition="top"
                 ></CircularIconButton>
               </motion.div>
