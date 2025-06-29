@@ -80,7 +80,7 @@ export default function Login() {
         />
       </svg>
       <div className="wrapper">
-        <form className="login-form" onSubmit={handleSubmit} autoComplete="off">
+        <form className="login-form" onSubmit={handleSubmit} autoComplete="off" noValidate>
           <div className="form-group">
             <input
               type="text"
@@ -91,7 +91,11 @@ export default function Login() {
               onChange={(e) => setUserName(e.target.value)}
               autoFocus
               maxLength={15}
+              aria-invalid={!!error && !userName}
             />
+            {error && !userName && (
+              <div className="input-error-tip">Name required</div>
+            )}
           </div>
           <div className="form-group">
             <select
@@ -99,6 +103,7 @@ export default function Login() {
               value={pickupPoint}
               required
               onChange={(e) => setPickupPoint(e.target.value)}
+              aria-invalid={!!error && !pickupPoint}
             >
               <option value="" disabled>
                 Choose pickup point
@@ -109,8 +114,11 @@ export default function Login() {
                 </option>
               ))}
             </select>
+            {error && !pickupPoint && (
+              <div className="input-error-tip">Pickup point required</div>
+            )}
           </div>
-          {error && <div className="error">{error}</div>}
+          {/* {error && <div className="error">{error}</div>} */}
           <button type="submit" className="enter-btn">
             Continue
           </button>
