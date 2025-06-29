@@ -14,7 +14,7 @@ export default function AnimatedCounter({
 
   useEffect(() => {
     const start = performance.now();
-    const from = displayValue; // Start from the currently displayed value
+    const from = displayValue;
     const to = value;
 
     const step = (timestamp: number) => {

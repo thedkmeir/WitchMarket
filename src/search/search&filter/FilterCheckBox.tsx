@@ -14,7 +14,6 @@ export default function FilterCheckBox({
   );
 
   useEffect(() => {
-    // Subscribe to categoryService and update local state when needed
     const unsubscribe = categoryService.subscribe(categoryName || "", () => {
       if (!categoryName) return;
       const val = categoryService.getCategories().get(categoryName);

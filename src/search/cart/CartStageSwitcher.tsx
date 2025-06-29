@@ -30,14 +30,12 @@ export default function CartStageSwitcher({
   useEffect(() => {
     let timer: number | null = null;
 
-    // Initial delayed registration
     if (panelRef.current) {
       timer = window.setTimeout(() => {
         registerCartTarget("panel", panelRef.current);
       }, 350);
     }
 
-    // Immediate update on resize
     function handleResize() {
       if (panelRef.current) {
         registerCartTarget("panel", panelRef.current);
@@ -45,7 +43,6 @@ export default function CartStageSwitcher({
     }
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       if (timer) window.clearTimeout(timer);
       window.removeEventListener("resize", handleResize);

@@ -9,10 +9,8 @@ import { useFlyToCart } from "../FlyToCartContext";
 export default function FloatingCart() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // const toggleCart = () => setIsOpen(!isOpen);
   const closeCart = () => setIsOpen(false);
   const openCart = () => setIsOpen(true);
-  // const { switchCartType } = useFlyToCart();
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -25,16 +23,6 @@ export default function FloatingCart() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   });
-
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     const timeout = setTimeout(() => switchCartType("panel"), 500);
-  //     return () => clearTimeout(timeout);
-  //   } else {
-  //     const timeout = setTimeout(() => switchCartType("icon"), 500);
-  //     return () => clearTimeout(timeout);
-  //   }
-  // }, [isOpen, switchCartType]);
 
   return (
     <CartContainer isOpen={isOpen}>

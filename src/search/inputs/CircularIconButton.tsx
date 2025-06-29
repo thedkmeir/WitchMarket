@@ -8,7 +8,7 @@ export default function CircularIconButton({
   icon,
   hoverText = "",
   hoverPosition = "bottom",
-  disabled = false, // <-- New prop, defaults to false
+  disabled = false,
   padding,
 }: {
   onChange?: () => void;

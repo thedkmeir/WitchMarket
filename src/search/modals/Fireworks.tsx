@@ -1,4 +1,3 @@
-// src/components/FireworksBackdrop.tsx
 import { useEffect, useRef } from "react";
 import { Fireworks } from "fireworks-js";
 
@@ -8,18 +7,15 @@ export default function FireworksBackdrop({ enabled = true }: { enabled?: boolea
 
   useEffect(() => {
     if (enabled && containerRef.current) {
-      // Only initialize if not already running
       if (!fwRef.current) {
         fwRef.current = new Fireworks(containerRef.current, {
           rocketsPoint: { min: 0, max: 100 },
-          hue: { min: 210, max: 360 }, // Purple-gold tones
+          hue: { min: 210, max: 360 },
           delay: { min: 15, max: 30 },
-          // speed: 2,
           acceleration: 1.02,
           friction: 0.95,
           gravity: 1.5,
           particles: 55,
-          // trace: 5,
           explosion: 6,
         });
         fwRef.current.start();
@@ -39,7 +35,7 @@ export default function FireworksBackdrop({ enabled = true }: { enabled?: boolea
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 99, // Lower than modal z-index!
+        zIndex: 99,
         pointerEvents: "none",
       }}
       aria-hidden="true"

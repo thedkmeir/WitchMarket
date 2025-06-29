@@ -46,7 +46,6 @@ export function useModal() {
   return ctx;
 }
 
-// --- ModalManager (uses ModalParams[] as stack)
 export function ModalManager({ children }: { children: ReactNode }) {
   const [modalStack, setModalStack] = useState<ModalParams[]>([]);
 
@@ -55,7 +54,7 @@ export function ModalManager({ children }: { children: ReactNode }) {
       ...stack,
       {
         ...modal,
-        dismissible: modal.dismissible !== false, // default to true
+        dismissible: modal.dismissible !== false,
       },
     ]);
   }
@@ -104,7 +103,6 @@ export function ModalManager({ children }: { children: ReactNode }) {
   );
 }
 
-// --- Switcher
 function ModalContentSwitcher({ modal }: { modal: ModalParams }) {
   switch (modal.type) {
     case "checkout":

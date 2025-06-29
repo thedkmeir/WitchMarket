@@ -16,7 +16,7 @@ export default function TopTip() {
         onChange={() => {
           localStorage.removeItem("userName");
           localStorage.removeItem("pickupPoint");
-          window.location.href = "/login"; // Or use navigate("/login") if using React Router hook
+          window.location.href = "/login";
         }}
       />
     </div>

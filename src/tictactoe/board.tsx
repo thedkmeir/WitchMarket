@@ -10,7 +10,7 @@ export default function Board() {
   const [squares, setSquares] = useState<(string | null)[]>(
     Array(9).fill(null)
   );
-  const [xIsNext, setXIsNext] = useState(true); // Human always goes first ("×")
+  const [xIsNext, setXIsNext] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false);
   const { openModal } = useModal();
 
@@ -51,7 +51,6 @@ export default function Board() {
     squaresCopy[i] = "×";
     setSquares(squaresCopy);
 
-    // Check for human win/draw immediately after move
     const winner = calculateWinner(squaresCopy);
     if (winner || isDraw(squaresCopy)) {
       setIsGameOver(true);
@@ -142,7 +141,6 @@ export default function Board() {
     }
   }
 
-  // --- UI ---
   return (
     <>
       <div className="board">

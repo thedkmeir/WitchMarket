@@ -26,8 +26,7 @@ export default function Login() {
     }
     localStorage.setItem("userName", userName.trim());
     localStorage.setItem("pickupPoint", pickupPoint.trim());
-    navigate("/"); // <-- If using react-router
-    // window.location.reload(); // Fallback: reload to trigger RequireAuth
+    navigate("/");
   }
 
   return (
@@ -35,8 +34,6 @@ export default function Login() {
       <div className="bg"></div>
       <svg
         className="text-mask-svg"
-        // width="100%"
-        // height="120px"
         viewBox="0 0 800 205"
         style={{ position: "relative", top: 0, left: 0, zIndex: 2 }}
       >
@@ -45,7 +42,6 @@ export default function Login() {
             <rect width="100%" height="100%" fill="white" />
             <g transform="translate(30, 12)">
               {" "}
-              {/* padding: 30px left, 12px top */}
               <text
                 x="370"
                 y="85"
@@ -94,7 +90,7 @@ export default function Login() {
               aria-invalid={!!error && !userName}
             />
             {error && !userName && (
-              <div className="input-error-tip">Name required</div>
+              <div className="input-error-tip">Name Required</div>
             )}
           </div>
           <div className="form-group">
@@ -115,10 +111,9 @@ export default function Login() {
               ))}
             </select>
             {error && !pickupPoint && (
-              <div className="input-error-tip">Pickup point required</div>
+              <div className="input-error-tip">Pickup point Required</div>
             )}
           </div>
-          {/* {error && <div className="error">{error}</div>} */}
           <button type="submit" className="enter-btn">
             Continue
           </button>

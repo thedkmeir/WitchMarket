@@ -27,12 +27,8 @@ export default function ProductRow({
 
   function handleProductClick() {
     if (isClickable && rowRef.current) {
-      // Step 1: get the bounding rects
       const from = rowRef.current.getBoundingClientRect();
-      // Assume you have access to the context
-      const to = getCartTargetRect()!; // or "panel"
-
-      // Step 2: use html2canvas to snapshot the row
+      const to = getCartTargetRect()!;
       html2canvas(rowRef.current).then((canvas) => {
         const image = canvas.toDataURL("image/png");
         triggerFly({
