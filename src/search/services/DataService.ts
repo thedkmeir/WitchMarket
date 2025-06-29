@@ -99,6 +99,7 @@ const products: Product[] = [
     stocked: true,
     name: "Goblin Growth Tonic",
   },
+  { category: "Potions", price: 12, stocked: true, name: "Truth Serum" },
 
   // Spells
   {

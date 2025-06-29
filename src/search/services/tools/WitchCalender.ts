@@ -18,5 +18,5 @@ export function dateToWitchString(date: Date): string {
 
   const phase = moonPhases[phaseIndex];
 
-  return `Your parcel shall arrive ${phase.flavor}. 🌙`;
+  return `Your parcel shall arrive at ${localStorage.getItem("pickupPoint")} ${phase.flavor}. 🌙`;
 }

@@ -3,6 +3,8 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import GradientText from "../inputs/GradientText";
 import TextButton from "../inputs/TextButton";
+import { cartService } from "../services/CartService";
+import { extraFeesService } from "../services/ExtraFeesService";
 
 const PICKUP_POINTS = [
   "Cauldron Alley",
@@ -26,6 +28,8 @@ export default function Login() {
     }
     localStorage.setItem("userName", userName.trim());
     localStorage.setItem("pickupPoint", pickupPoint.trim());
+    if (userName.trim().toLowerCase() === "owner") 
+      localStorage.setItem("isOwner", "true");
     navigate("/");
   }
 
@@ -76,7 +80,12 @@ export default function Login() {
         />
       </svg>
       <div className="wrapper">
-        <form className="login-form" onSubmit={handleSubmit} autoComplete="off" noValidate>
+        <form
+          className="login-form"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+          noValidate
+        >
           <div className="form-group">
             <input
               type="text"

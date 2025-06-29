@@ -13,6 +13,7 @@ import "./CartStageSwitcher.scss";
 import { cartService } from "../services/CartService";
 import { useModal } from "../modals/ModalManager";
 import { useFlyToCart } from "../FlyToCartContext";
+import { setThemeColors } from "../services/tools/ThemeChanger";
 
 export default function CartStageSwitcher({
   onClose,
@@ -26,6 +27,7 @@ export default function CartStageSwitcher({
   const { openModal } = useModal();
   const panelRef = useRef<HTMLDivElement | null>(null);
   const { registerCartTarget } = useFlyToCart();
+  const devilTheme = useRef<boolean>(false);
 
   useEffect(() => {
     let timer: number | null = null;
@@ -52,7 +54,7 @@ export default function CartStageSwitcher({
 
   useEffect(() => {
     const unsubscribe = cartService.subscribe("CartStageSwitcher", () => {
-      if (cartService.getTotalCost() === 0) {
+      if (cartService.isCartEmpty()) {
         setDisableProceedBtn(true);
         setStage("cart");
       } else setDisableProceedBtn(false);
@@ -86,7 +88,7 @@ export default function CartStageSwitcher({
               exit={{ x: 350 }}
               transition={{ duration: 0.3 }}
             >
-              <FinalCheckout onCartChange={() => setStage("cart")}/>
+              <FinalCheckout onCartChange={() => setStage("cart")} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -115,7 +117,8 @@ export default function CartStageSwitcher({
                       type: "yesNo",
                       title: "Cleanse Cauldron?",
                       params: {
-                        question: "Are you sure you want to cleanse your Cauldron?",
+                        question:
+                          "Are you sure you want to cleanse your Cauldron?",
                         onAnswer: (answer: boolean) => {
                           if (answer) cartService.clear();
                         },
@@ -133,6 +136,19 @@ export default function CartStageSwitcher({
           <CircularIconButton
             onChange={() => {
               setStage(stage === "cart" ? "checkout" : "cart");
+              if (!devilTheme.current) {
+                const num = cartService.getTotalCost();
+                const digits = num.toString().replace(".", "");
+                if (digits.includes("666") && stage === "cart") {
+                  devilTheme.current = true;
+                  setThemeColors([
+                    "#1c1c1c", // background
+                    "#602020", // panel
+                    "#720d0d", // text
+                    "#ea5220", // accent
+                  ]);
+                }
+              }
             }}
             icon={
               <AnimatePresence mode="wait" initial={false}>

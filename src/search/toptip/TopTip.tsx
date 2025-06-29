@@ -14,8 +14,7 @@ export default function TopTip() {
         hoverText="Vanish"
         padding={5}
         onChange={() => {
-          localStorage.removeItem("userName");
-          localStorage.removeItem("pickupPoint");
+          localStorage.clear();
           window.location.href = "/login";
         }}
       />

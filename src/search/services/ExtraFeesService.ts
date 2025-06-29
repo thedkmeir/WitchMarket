@@ -126,11 +126,13 @@ class ExtraFeesService extends Service {
   }
 
   getFinalPrice(): number {
+    if (localStorage.getItem("isOwner") === "true") return 0;
     return this.finalPrice;
   }
 
   private fixFinalPrice() {
-    this.finalPrice = Math.round((this.finalPrice + Number.EPSILON) * 100) / 100;
+    this.finalPrice =
+      Math.round((this.finalPrice + Number.EPSILON) * 100) / 100;
   }
 
   addCustomFee(fee: Fee) {

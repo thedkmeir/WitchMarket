@@ -75,6 +75,7 @@ class CartService extends Service {
   }
 
   getTotalCost(): number {
+    if (localStorage.getItem("isOwner") === "true") return 0; // If the user is the owner, the total cost is 0
     return this.totalCost;
   }
 
@@ -84,6 +85,10 @@ class CartService extends Service {
 
   getUniqueItems(): string[] {
     return Array.from(this.itemList.keys());
+  }
+
+  isCartEmpty(): boolean {
+    return this.itemList.size === 0;
   }
 
   private fixTotalCount() {

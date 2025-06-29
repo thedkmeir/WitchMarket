@@ -5,6 +5,13 @@ $color2: #4f1c51;
 $color3: #a55b4b;
 $color4: #dca06d;
 
+// Black and white
+// $color1: #121212;
+// $color2: #2E2E2E;
+// $color3: #595959;
+// $color4: #989898;
+
+
 :root {
   --color-1-darker: #{color.scale($color1, $lightness: -40%)};
   --color-1-dark: #{color.scale($color1, $lightness: -20%)};
