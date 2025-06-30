@@ -7,7 +7,6 @@ import ReceiptModal from "./ReceiptModal";
 import YesNoModal, { YesNoParams } from "./YesNoModal";
 import CheckoutModal from "./FinalCheckoutModal";
 import FireworksBackdrop from "./Fireworks";
-import Fireworks from "fireworks-js";
 
 type ModalParams =
   | {

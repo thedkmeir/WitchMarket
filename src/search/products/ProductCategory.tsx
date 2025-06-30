@@ -4,7 +4,7 @@ import ProductRow from "../products/ProductRow";
 import "./ProductCategory.scss";
 import { cartService } from "../services/CartService";
 import { useModal } from "../modals/ModalManager";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductCategory({
   categoryName,

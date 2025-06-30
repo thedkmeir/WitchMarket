@@ -13,7 +13,7 @@ import "./CartStageSwitcher.scss";
 import { cartService } from "../services/CartService";
 import { useModal } from "../modals/ModalManager";
 import { useFlyToCart } from "../FlyToCartContext";
-import { setThemeColors } from "../services/tools/ThemeChanger";
+import { ThemeManager } from "../services/ThemeService";
 
 export default function CartStageSwitcher({
   onClose,
@@ -141,7 +141,7 @@ export default function CartStageSwitcher({
                 const digits = num.toString().replace(".", "");
                 if (digits.includes("666") && stage === "cart") {
                   devilTheme.current = true;
-                  setThemeColors([
+                  ThemeManager.setCostumeTheme([
                     "#1c1c1c", // background
                     "#602020", // panel
                     "#720d0d", // text

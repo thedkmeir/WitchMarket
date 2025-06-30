@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import CircularIconButton from "../inputs/CircularIconButton";
 import "./TopTip.scss";
 
 export default function TopTip() {
   const userName = localStorage.getItem("userName");
+  const navigate = useNavigate();
 
   return (
     <div className="topTip">
@@ -15,7 +17,7 @@ export default function TopTip() {
         padding={5}
         onChange={() => {
           localStorage.clear();
-          window.location.href = "/login";
+          navigate("/login", { replace: true });
         }}
       />
     </div>

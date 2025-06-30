@@ -24,11 +24,14 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children;
 }
 
+const PUBLIC_BASE = import.meta.env.PROD ? "/WitchMarket" : "/";
+
 export default function App() {
   return (
     <FlyToCartProvider>
       <ModalManager>
         <Router
+          basename={PUBLIC_BASE}
           future={{
             v7_startTransition: true,
             v7_relativeSplatPath: true,

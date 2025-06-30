@@ -1,13 +1,13 @@
 {
   "name": "WitchMarket",
   "private": true,
-  "version": "0.0.8",
-  "lastUpdate": "29/06/25",
+  "version": "1.0.4",
+  "lastUpdate": "01/07/25",
   "type": "module",
   "homepage": "https://thedkmeir.github.io/WitchMarket",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build && cp dist/index.html dist/404.html",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",

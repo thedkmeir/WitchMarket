@@ -1,10 +1,7 @@
 import { useState } from "react";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
-import GradientText from "../inputs/GradientText";
-import TextButton from "../inputs/TextButton";
-import { cartService } from "../services/CartService";
-import { extraFeesService } from "../services/ExtraFeesService";
+import { ThemeManager } from "../services/ThemeService";
 
 const PICKUP_POINTS = [
   "Cauldron Alley",
@@ -14,9 +11,12 @@ const PICKUP_POINTS = [
   "Moonlit Docks",
 ];
 
+const WITCH_TYPES = ThemeManager.getAllThemeNames();
+
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [pickupPoint, setPickupPoint] = useState("");
+  const [witchType, setWitchType] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -28,9 +28,15 @@ export default function Login() {
     }
     localStorage.setItem("userName", userName.trim());
     localStorage.setItem("pickupPoint", pickupPoint.trim());
-    if (userName.trim().toLowerCase() === "owner") 
+    if (userName.trim().toLowerCase() === "owner")
       localStorage.setItem("isOwner", "true");
     navigate("/");
+  }
+
+  function handleWitchTypeChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedType = e.target.value;
+    localStorage.setItem("witchType", selectedType);
+    ThemeManager.setTheme(selectedType);
   }
 
   return (
@@ -111,7 +117,7 @@ export default function Login() {
               aria-invalid={!!error && !pickupPoint}
             >
               <option value="" disabled>
-                Choose pickup point
+                Choose a Cauldron Drop Point
               </option>
               {PICKUP_POINTS.map((point) => (
                 <option key={point} value={point}>
@@ -122,6 +128,26 @@ export default function Login() {
             {error && !pickupPoint && (
               <div className="input-error-tip">Pickup point Required</div>
             )}
+          </div>
+          <div className="form-group">
+            <select
+              id="witchType"
+              value={witchType}
+              required
+              onChange={(e) => {
+                setWitchType(e.target.value);
+                handleWitchTypeChange(e);
+              }}
+            >
+              <option value="" disabled>
+                Reveal Thy Inner Witch
+              </option>
+              {WITCH_TYPES.map((point) => (
+                <option key={point} value={point}>
+                  {point}
+                </option>
+              ))}
+            </select>
           </div>
           <button type="submit" className="enter-btn">
             Continue

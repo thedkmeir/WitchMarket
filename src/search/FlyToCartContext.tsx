@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext, useContext, useRef, useState, ReactNode, useCallback
 } from "react";
 import FlyToCartOverlay from "./FlyToCartOverlay";

@@ -1,10 +1,9 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import CartContainer from "./CartContainer";
 import CartIcon from "./CartIcon";
 import "./FloatingCart.scss";
 import CartStageSwitcher from "./CartStageSwitcher";
-import { useFlyToCart } from "../FlyToCartContext";
 
 export default function FloatingCart() {
   const [isOpen, setIsOpen] = useState(false);

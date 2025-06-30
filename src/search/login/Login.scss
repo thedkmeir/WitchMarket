@@ -7,7 +7,12 @@
 
   .input-error-tip {
     color: black;
-    background: linear-gradient(90deg, var(--color-2), var(--color-3), var(--color-4));
+    background: linear-gradient(
+      90deg,
+      var(--color-2),
+      var(--color-3),
+      var(--color-4)
+    );
     border-radius: 7px;
     padding: 4px 12px;
     font-size: 0.96rem;
@@ -91,10 +96,8 @@
     margin: unset;
     border-end-end-radius: 16px;
     border-end-start-radius: 16px;
-    margin-top: -9px;
+    margin-top: -7.5px;
   }
-
-  //
 
   h1 {
     letter-spacing: 0.03em;
@@ -131,6 +134,25 @@
         &:focus {
           border-color: var(--color-4);
         }
+      }
+
+      select {
+        appearance: none; // Remove browser styling (works on Safari with prefix)
+        -webkit-appearance: none; // Safari/WebKit
+        -moz-appearance: none; // Firefox
+        background: var(--color-3);
+        color: black;
+        border: none;
+        border-radius: 7px;
+        padding: 7px 28px 7px 10px; // Leave space for custom arrow
+        font-size: 1rem;
+        outline: none;
+
+        // Add custom arrow via background image or pseudo-element
+        background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 9px center;
+        background-size: 20px 20px;
       }
       input::placeholder {
         color: black;
