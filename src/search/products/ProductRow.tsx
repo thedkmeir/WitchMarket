@@ -29,7 +29,7 @@ export default function ProductRow({
     if (isClickable && rowRef.current) {
       const from = rowRef.current.getBoundingClientRect();
       const to = getCartTargetRect()!;
-      html2canvas(rowRef.current).then((canvas) => {
+      html2canvas(rowRef.current, { scale: 1}).then((canvas) => {
         const image = canvas.toDataURL("image/png");
         triggerFly({
           image,
