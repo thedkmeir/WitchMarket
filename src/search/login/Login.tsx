@@ -45,7 +45,7 @@ export default function Login() {
       <svg
         className="text-mask-svg"
         viewBox="0 0 800 205"
-        style={{ position: "relative", top: 0, left: 0, zIndex: 2 }}
+        style={{ position: "relative", top: 0, left: 0, zIndex: 2, }}
       >
         <defs>
           <mask id="portal-text-mask">

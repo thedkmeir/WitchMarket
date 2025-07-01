@@ -11,7 +11,6 @@ $color4: #dca06d;
 // $color3: #595959;
 // $color4: #989898;
 
-
 :root {
   --color-1-darker: #{color.scale($color1, $lightness: -40%)};
   --color-1-dark: #{color.scale($color1, $lightness: -20%)};
@@ -60,6 +59,8 @@ $color4: #dca06d;
 
 * {
   user-select: none;
+  transition: background 1s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 1s cubic-bezier(0.4, 0, 0.2, 1), color 0.35s;
 }
 
 body {

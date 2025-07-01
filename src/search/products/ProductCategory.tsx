@@ -55,7 +55,6 @@ export default function ProductCategory({
                     isShowOnly={!product.stocked}
                     onClick={() => {
                       cartService.addItem(product.name);
-                      cartService.addItem(product.name);
                       if (!localStorage.getItem("truthSerumMsg")) {
                         if (product.name === "Truth Serum") {
                           localStorage.setItem("truthSerumMsg", "shown");

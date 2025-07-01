@@ -22,7 +22,7 @@ export default function CartStageSwitcher({
 }) {
   const [stage, setStage] = useState<"cart" | "checkout">("cart");
   const [disableProceedBtn, setDisableProceedBtn] = useState<boolean>(
-    cartService.getTotalCost() === 0 && stage === "cart"
+    cartService.getUniqueItemsCount() === 0 && stage === "cart"
   );
   const { openModal } = useModal();
   const panelRef = useRef<HTMLDivElement | null>(null);

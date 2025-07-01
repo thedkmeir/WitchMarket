@@ -19,7 +19,7 @@ export class ThemeManager extends Service {
     },
     {
       name: "Ice",
-      colors: ["#FFFFFFCC", "#DFF8FFDD", "#A8E1FFFF", "#6CCEF2AA"],
+      colors: ["#FFFFFF", "#DFF8FF", "#A8E1FF", "#6CCEF2"],
     },
     {
       name: "Fire",
@@ -31,7 +31,7 @@ export class ThemeManager extends Service {
     },
     {
       name: "Air",
-      colors: ["#D4D4D4B3", "#A9C7DDB3", "#7D8C91", "#3E4A50"],
+      colors: ["#D4D4D4", "#A9C7DD", "#7D8C91", "#3E4A50"],
     },
     {
       name: "Forest",
