@@ -1,6 +1,22 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 import "./CartContainer.scss";
+// Add the hook from above here!
+import { useLayoutEffect, useState } from "react";
+
+function useIsMobile(breakpoint = 700) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= breakpoint : false
+  );
+  useLayoutEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= breakpoint);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 export default function CartContainer({
   isOpen,
@@ -9,6 +25,10 @@ export default function CartContainer({
   isOpen: boolean;
   children: ReactNode;
 }) {
+  const isMobile = useIsMobile(700);
+
+  const openWidth = isMobile ? 340 : 370;
+
   return (
     <div className="cartContainer">
       <motion.div
@@ -19,7 +39,7 @@ export default function CartContainer({
         animate={isOpen ? "open" : "closed"}
         variants={{
           open: {
-            width: 370,
+            width: openWidth,
             height: 550,
             borderRadius: "16px",
           },
