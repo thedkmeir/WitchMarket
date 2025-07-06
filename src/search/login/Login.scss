@@ -126,11 +126,12 @@
       display: flex;
       flex-direction: column-reverse;
       gap: 6px;
+
       input,
       select {
         border-style: none;
-        padding: 7px 10px;
         border-radius: 7px;
+        padding: 7px 10px;
         font-size: 24px;
         outline: none;
         background-color: var(--color-3);
@@ -142,27 +143,29 @@
       }
 
       select {
-        appearance: none; // Remove browser styling (works on Safari with prefix)
+        // Custom dropdown styling
+        appearance: none; // Remove browser styling
         -webkit-appearance: none; // Safari/WebKit
         -moz-appearance: none; // Firefox
         background: var(--color-3);
         color: black;
         border: none;
         border-radius: 7px;
-        padding: 7px 28px 7px 10px; // Leave space for custom arrow
-        font-size: 1rem;
+        padding: 7px 28px 7px 10px; // Extra right padding for custom arrow
+        font-size: 1rem; // On select: can be smaller for contrast
         outline: none;
 
-        // Add custom arrow via background image or pseudo-element
         background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
         background-repeat: no-repeat;
         background-position: right 9px center;
         background-size: 20px 20px;
       }
+
       input::placeholder {
         color: black;
         font-size: 24px;
       }
+
       label {
         font-size: 24px;
         letter-spacing: 0.01em;
@@ -207,7 +210,7 @@
     padding: 0;
     border-radius: 18px;
     box-sizing: border-box;
-    
+
     .wrapper {
       margin-top: 0;
       padding: 3vw 3vw 3vw 3vw;

@@ -49,7 +49,9 @@ export default function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1 }}
                   >
-                    <LoginPage />
+                    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center" }}>
+                      <LoginPage />
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               }
@@ -64,6 +66,7 @@ export default function App() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8 }}
+                    style={{ minHeight: "unset" }}
                   >
                     <RequireAuth>
                       <StorePage />

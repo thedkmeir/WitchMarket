@@ -22,6 +22,7 @@
       top: 50%;
       transform: translate(-50%, -50%);
       cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
     .range-slider__thumb:hover {
