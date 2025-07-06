@@ -8,5 +8,3 @@ xxx: Needs review
 
 FIXME Dropdown menu on windows looks terrible
 
-FIXME fix main layout so when we have nothing the filter block wont fall to the middle..
-

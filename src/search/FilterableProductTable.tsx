@@ -43,24 +43,26 @@ export default function FilterableProductTable() {
           <Search />
           <FilterContainer />
         </div>
-        <div className="contMain">
-          <AnimatePresence>
-            {categories.map((categoryName) => (
-              <motion.div
-                key={categoryName}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <ProductCategory
-                  categoryName={categoryName}
-                  productList={dataService.getMyProducts(categoryName)}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        {categories && categories.length > 0 && (
+          <div className="contMain">
+            <AnimatePresence>
+              {categories.map((categoryName) => (
+                <motion.div
+                  key={categoryName}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <ProductCategory
+                    categoryName={categoryName}
+                    productList={dataService.getMyProducts(categoryName)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
     </>
   );
