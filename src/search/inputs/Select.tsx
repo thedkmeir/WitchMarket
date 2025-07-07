@@ -47,7 +47,7 @@ export default function WitchySelect({
       onChange={(option) => onChange(option ? option.value : null)}
       placeholder={placeholder}
       isClearable={false}
-      isSearchable={searchable} // Set to true if you want search functionality
+      isSearchable={searchable}
       styles={{
         control: (base, state) => ({
           ...base,
@@ -66,7 +66,8 @@ export default function WitchySelect({
           ...base,
           padding: 0,
           margin: 0,
-          // maxHeight: "auto",
+          maxHeight: "250px",
+          overflowY: "auto",
         }),
         menu: (base) => ({
           ...base,
@@ -86,8 +87,6 @@ export default function WitchySelect({
           color: colors.text,
           fontWeight: state.isSelected ? 900 : 700,
           borderRadius: 8,
-          // margin: "1.5px 8px",
-          padding: "11px 18px",
           fontFamily: "'Dancing Script', cursive",
           fontSize: 24,
           transition: "background 0.18s",
@@ -109,15 +108,12 @@ export default function WitchySelect({
         }),
         indicatorSeparator: (base) => ({
           ...base,
-          // backgroundColor: colors.accent,
           display: "none",
         }),
         input: (base) => ({
           ...base,
           fontFamily: "'Dancing Script', cursive",
           fontWeight: 700,
-
-          // display: "none"
         }),
       }}
       theme={(theme) => ({
