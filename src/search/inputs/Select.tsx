@@ -66,7 +66,7 @@ export default function WitchySelect({
           ...base,
           padding: 0,
           margin: 0,
-          maxHeight: "auto",
+          // maxHeight: "auto",
         }),
         menu: (base) => ({
           ...base,
