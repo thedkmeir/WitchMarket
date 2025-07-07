@@ -1,7 +1,7 @@
 {
   "name": "WitchMarket",
   "private": true,
-  "version": "1.0.8",
+  "version": "1.0.8.1",
   "lastUpdate": "01/07/25",
   "type": "module",
   "homepage": "https://thedkmeir.github.io/WitchMarket",
@@ -24,6 +24,7 @@
     "react-icons": "^5.5.0",
     "react-range-slider-input": "^3.2.1",
     "react-router-dom": "^6.30.1",
+    "react-select": "^5.10.1",
     "react-tooltip": "^5.28.1"
   },
   "devDependencies": {

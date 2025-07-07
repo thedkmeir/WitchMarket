@@ -4,7 +4,3 @@ fixme: This is broken
 bug: Crashes when input is empty
 hack: Dirty workaround for issue #123
 xxx: Needs review
-
-
-FIXME Dropdown menu on windows looks terrible
-

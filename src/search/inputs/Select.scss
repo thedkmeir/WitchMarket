@@ -1,0 +1,31 @@
+// WitchySelect.scss
+.witchy-select-container {
+  margin-bottom: 20px;
+  min-width: 220px;
+
+  label {
+    display: block;
+    font-family: "Dancing Script", cursive;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    color: var(--color-4);
+    letter-spacing: 0.04em;
+  }
+
+  .witchy-select__control {
+    font-family: inherit;
+    border-radius: 7px;
+    box-shadow: 0 2px 12px 0 rgba(33,15,55,0.08);
+    transition: box-shadow 0.2s;
+  }
+}
+
+/* Responsive for mobile */
+@media (max-width: 700px) {
+  .witchy-select-container {
+    min-width: 160px;
+    font-size: 17px;
+    margin-bottom: 12px;
+    label { font-size: 1.01em; }
+  }
+}

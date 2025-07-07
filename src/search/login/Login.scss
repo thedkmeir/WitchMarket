@@ -127,8 +127,7 @@
       flex-direction: column-reverse;
       gap: 6px;
 
-      input,
-      select {
+      input {
         border-style: none;
         border-radius: 7px;
         padding: 7px 10px;
@@ -140,25 +139,6 @@
         &:focus {
           border-color: var(--color-4);
         }
-      }
-
-      select {
-        // Custom dropdown styling
-        appearance: none; // Remove browser styling
-        -webkit-appearance: none; // Safari/WebKit
-        -moz-appearance: none; // Firefox
-        background: var(--color-3);
-        color: black;
-        border: none;
-        border-radius: 7px;
-        padding: 7px 28px 7px 10px; // Extra right padding for custom arrow
-        font-size: 1rem; // On select: can be smaller for contrast
-        outline: none;
-
-        background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-        background-repeat: no-repeat;
-        background-position: right 9px center;
-        background-size: 20px 20px;
       }
 
       input::placeholder {
@@ -230,21 +210,9 @@
     }
     .login-form {
       gap: 13px;
-      .form-group input,
-      .form-group select {
+      .form-group input {
         font-size: 18px;
         padding: 10px 8px;
-      }
-      label {
-        font-size: 18px;
-      }
-      .enter-btn {
-        font-size: 17px;
-        padding: 12px 8px;
-      }
-      .error,
-      .input-error-tip {
-        font-size: 16px;
       }
     }
   }

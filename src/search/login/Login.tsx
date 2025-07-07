@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { ThemeManager } from "../services/ThemeService";
+import WitchySelect from "../inputs/Select";
 
-const PICKUP_POINTS = [
+const PICKUP_OPTIONS = [
   "Cauldron Alley",
   "Enchanted Forest Hut",
   "Witchlight Post",
@@ -15,26 +16,27 @@ const WITCH_TYPES = ThemeManager.getAllThemeNames();
 
 export default function Login() {
   const [userName, setUserName] = useState("");
-  const [pickupPoint, setPickupPoint] = useState("");
-  const [witchType, setWitchType] = useState("");
+  const [pickup, setPickup] = useState<string | null>(null);
+  const [witchType, setWitchType] = useState<string | null>(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!userName.trim() || !pickupPoint.trim()) {
+    if (!userName.trim() || !pickup || !pickup.trim()) {
       setError("Please fill out all fields!");
       return;
     }
     localStorage.setItem("userName", userName.trim());
-    localStorage.setItem("pickupPoint", pickupPoint.trim());
+    localStorage.setItem("pickupPoint", pickup.trim());
     if (userName.trim().toLowerCase() === "owner")
       localStorage.setItem("isOwner", "true");
     navigate("/");
   }
 
-  function handleWitchTypeChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const selectedType = e.target.value;
+  function handleWitchTypeChange(selectedType: string | null) {
+    if (!selectedType) return;
+    setWitchType(selectedType);
     localStorage.setItem("witchType", selectedType);
     ThemeManager.setTheme(selectedType);
   }
@@ -45,7 +47,7 @@ export default function Login() {
       <svg
         className="text-mask-svg"
         viewBox="0 0 800 205"
-        style={{ position: "relative", top: 0, left: 0, zIndex: 2, }}
+        style={{ position: "relative", top: 0, left: 0, zIndex: 2 }}
       >
         <defs>
           <mask id="portal-text-mask">
@@ -109,45 +111,27 @@ export default function Login() {
             )}
           </div>
           <div className="form-group">
-            <select
-              id="pickupPoint"
-              value={pickupPoint}
-              required
-              onChange={(e) => setPickupPoint(e.target.value)}
-              aria-invalid={!!error && !pickupPoint}
-            >
-              <option value="" disabled>
-                Choose a Cauldron Drop Point
-              </option>
-              {PICKUP_POINTS.map((point) => (
-                <option key={point} value={point}>
-                  {point}
-                </option>
-              ))}
-            </select>
-            {error && !pickupPoint && (
+            <WitchySelect
+              inputId="pickupPoint"
+              options={PICKUP_OPTIONS}
+              value={pickup}
+              onChange={setPickup}
+              placeholder="Choose a Cauldron Drop Point"
+              searchable={false}
+            />
+            {error && !pickup && (
               <div className="input-error-tip">Pickup point Required</div>
             )}
           </div>
           <div className="form-group">
-            <select
-              id="witchType"
+            <WitchySelect
+              inputId="witchType"
+              options={WITCH_TYPES}
               value={witchType}
-              required
-              onChange={(e) => {
-                setWitchType(e.target.value);
-                handleWitchTypeChange(e);
-              }}
-            >
-              <option value="" disabled>
-                Reveal Thy Inner Witch
-              </option>
-              {WITCH_TYPES.map((point) => (
-                <option key={point} value={point}>
-                  {point}
-                </option>
-              ))}
-            </select>
+              onChange={(value) => handleWitchTypeChange(value)}
+              placeholder="Reveal Thy Inner Witch"
+              searchable={false}
+            />
           </div>
           <button type="submit" className="enter-btn">
             Continue
